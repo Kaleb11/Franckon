@@ -1,0 +1,7 @@
+               [
+                   { "resourceName": "Projects", "read": true, "write": true, "update": true, "delete": true, "name": "projects" },
+                   { "resourceName": "Inventory data", "read": true, "write": true, "update": true, "delete": true, "name": "inventory_data" },
+                   { "resourceName": "Admin users", "read": true, "write": true, "update": true, "delete": true, "name": "adminusers" },
+                   { "resourceName": "Role", "read": true, "write": true, "update": true, "delete": true, "name": "role" },
+                   { "resourceName": "Assign Role", "read": true, "write": true, "update": true, "delete": true, "name": "assign_role" }
+               ]
