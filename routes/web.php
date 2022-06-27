@@ -22,18 +22,18 @@ Route::group([
     'prefix' => 'app'
 ], function () {
 Auth::routes();
-Route::post('/create_category','App\Http\Controllers\AdminController@addCategory');
-Route::get('/get_category', 'App\Http\Controllers\AdminController@getCategory');
-Route::delete('/delete_category','App\Http\Controllers\AdminController@deleteCategory');
-Route::post('/upload','App\Http\Controllers\AdminController@upload');
-Route::post('/upload/user/photo','App\Http\Controllers\AdminController@upload');
-Route::post('/delete_image','App\http\Controllers\AdminController@deleteImage');
-Route::put('/update_category', 'App\Http\Controllers\AdminController@updateCategory');
-Route::post('/create_user','App\Http\Controllers\AdminController@createUser');
-Route::get('/get_users', 'App\Http\Controllers\AdminController@getUsers');
-Route::post('/upload/project/image','App\Http\Controllers\AdminController@upload');
-Route::post('/upload/reset/photo','App\Http\Controllers\AdminController@upload');
-Route::put('/update_user', 'App\Http\Controllers\AdminController@updateUser');
+Route::post('/create_category','app\Http\Controllers\AdminController@addCategory');
+Route::get('/get_category', 'app\Http\Controllers\AdminController@getCategory');
+Route::delete('/delete_category','app\Http\Controllers\AdminController@deleteCategory');
+Route::post('/upload','app\Http\Controllers\AdminController@upload');
+Route::post('/upload/user/photo','app\Http\Controllers\AdminController@upload');
+Route::post('/delete_image','app\http\Controllers\AdminController@deleteImage');
+Route::put('/update_category', 'app\Http\Controllers\AdminController@updateCategory');
+Route::post('/create_user','app\Http\Controllers\AdminController@createUser');
+Route::get('/get_users', 'app\Http\Controllers\AdminController@getUsers');
+Route::post('/upload/project/image','app\Http\Controllers\AdminController@upload');
+Route::post('/upload/reset/photo','app\Http\Controllers\AdminController@upload');
+Route::put('/update_user', 'app\Http\Controllers\AdminController@updateUser');
 Route::delete('/delete_user','App\Http\Controllers\AdminController@deleteUser');
 Route::post('/admin_login','App\Http\Controllers\AdminController@adminLogin');
 Route::post('/create_role','App\Http\Controllers\AdminController@addRole');
