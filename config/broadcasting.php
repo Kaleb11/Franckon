@@ -38,7 +38,7 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => true,
-                'host'=>'http://franckon-logistic.herokuapp.com/',
+                'host'=>'http://franckon-logistic.herokuapp.com',
                 
                 'port'=>6001,
                 'encrypted' => false,
