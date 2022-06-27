@@ -5,7 +5,7 @@ use App\Models\Notification;
 use App\Http\Middleware\AdminCheck;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
+use Franckon\App\Http\Controllers\AdminController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
