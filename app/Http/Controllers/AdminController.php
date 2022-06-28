@@ -1,5 +1,4 @@
 <?php
-set_time_limit(150)
 
 namespace App\Http\Controllers;
 
@@ -22,6 +21,7 @@ use App\Events\NotificationPend;
 use App\Events\NotificationByRole;
 use Illuminate\Support\Facades\Auth;
 use App\Events\NotificationProjectPend;
+set_time_limit(150)
 
 class admincontroller extends Controller
 {
