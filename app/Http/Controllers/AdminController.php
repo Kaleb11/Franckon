@@ -1,4 +1,5 @@
 <?php
+set_time_limit(150)
 
 namespace App\Http\Controllers;
 
