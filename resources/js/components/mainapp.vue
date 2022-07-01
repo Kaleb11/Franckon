@@ -287,7 +287,7 @@
                   <v-list-item-icon style="margin-left:-13px; color:white"><v-icon class="mx-1" style="color:white;" v-for="iconItem in icons" :key="iconItem.iconName" v-if="iconItem.routerName == menuItem.name"  >{{iconItem.iconName}}</v-icon> </v-list-item-icon>
 
                
-                  <v-list-item-content style="margin-top: -8%; margin-left: -21px; color:blue;"><v-list-item-title>{{menuItem.resourceName}}</v-list-item-title>
+                  <v-list-item-content style="margin-top: -8%; margin-left: -21px; color:white;"><v-list-item-title>{{menuItem.resourceName}}</v-list-item-title>
           </v-list-item-content>
          
         </v-list-item>
