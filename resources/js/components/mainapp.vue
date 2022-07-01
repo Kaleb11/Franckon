@@ -236,22 +236,27 @@
     <v-navigation-drawer
     
     app
+    class="Sr"
     style="
     height:  1191%;
-    background-color:black;
-    "
+    background: linear-gradient(
+        45deg,
+        rgba(29, 236, 197, 0.5),
+        rgba(91, 14, 214, 0.5) 100%
+      );"
    
       v-model="drawer"
       :mini-variant.sync="mini"
       permanent
     >
-      <v-list-item class="px-2" style="height: 63px; background-color: black;color: blue;">
+      <v-list-item class="px-2" style="height: 63px;
+      color: white;">
         <!-- <v-list-item-avatar>
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
         </v-list-item-avatar> -->
 
-      <v-list-item-title v-for="(rle,i) in roles" :key="i" style="color: wheat;" v-if="user.role_id == rle.id"><b>FRANCKON ENGINEERING</b></v-list-item-title>
-        <v-btn style="color: blue;background-color: wheat;"
+      <v-list-item-title v-for="(rle,i) in roles" :key="i" style="color: white;" v-if="user.role_id == rle.id"><b>FRANCKON ENGINEERING</b></v-list-item-title>
+        <v-btn style="color: white;background-color: #001B3B;"
           icon
           @click.stop="mini = !mini"
         >
@@ -260,9 +265,9 @@
        
       </v-list-item>
 
-      <v-divider style="border-color: aliceblue;"></v-divider>
+      <v-divider style="border-color: wheat;"></v-divider>
 
-      <v-list dense style="background-color: black;color: blue;">
+      <v-list dense style="color: blue;">
         <v-list-item class="px-2">
         <v-list-item-avatar  style="margin-left: 76px;height: 80px;min-width: 80px;width: 80px;"  >
           <v-img :src="`${user.photo}`" data-holder-rendered="true"></v-img>
@@ -272,14 +277,14 @@
 
         
       </v-list-item>
-      <v-list-item-title style="text-align: center; color: aqua;" class="mx-2" v-for="(rle,i) in roles" :key="i" v-if="user.role_id == rle.id"><b>{{user.fullName}}({{rle.roleName}})</b></v-list-item-title>
+      <v-list-item-title style="text-align: center; color: white;" class="mx-2" v-for="(rle,i) in roles" :key="i" v-if="user.role_id == rle.id"><b>{{user.fullName}}({{rle.roleName}})</b></v-list-item-title>
         <div style="padding: 13px;"></div>
-        <v-divider style="border-color: aliceblue;"></v-divider>
+        <v-divider style="border-color: wheat;"></v-divider>
         <div style="padding: 5px;"></div>
         <v-list-item two-line v-for="menuItem in permission" :key="menuItem.resourceName" v-if="permission.length && menuItem.read && menuItem.resourceName != 'Inventory data'" link :to="'/'+menuItem.name">
               
                
-                  <v-list-item-icon style="margin-left:-13px; color:blue;"><v-icon class="mx-1" style="color:blue;" v-for="iconItem in icons" :key="iconItem.iconName" v-if="iconItem.routerName == menuItem.name"  >{{iconItem.iconName}}</v-icon> </v-list-item-icon>
+                  <v-list-item-icon style="margin-left:-13px; color:white"><v-icon class="mx-1" style="color:white;" v-for="iconItem in icons" :key="iconItem.iconName" v-if="iconItem.routerName == menuItem.name"  >{{iconItem.iconName}}</v-icon> </v-list-item-icon>
 
                
                   <v-list-item-content style="margin-top: -8%; margin-left: -21px; color:blue;"><v-list-item-title>{{menuItem.resourceName}}</v-list-item-title>
@@ -287,11 +292,11 @@
          
         </v-list-item>
 
-          <v-list-item style="color:blue;" two-line href="/logout" @click="logout">
+          <v-list-item style="color:white;" two-line href="/logout" @click="logout">
             
             <v-list-item-icon style="margin-left:-13px">
               
-              <v-icon style="color:blue;" class="mx-1">logout</v-icon>
+              <v-icon style="color:white;" class="mx-1">logout</v-icon>
             </v-list-item-icon>
     
             <v-list-item-content style="margin-top: -8%; margin-left:-21px;"
@@ -635,6 +640,13 @@ watch:{
 <style>
 .ss {
   min-width: 0px; top: 45px; left: 917px; transform-origin: left top; z-index: 8;
+}
+.Sr {
+  background: linear-gradient(
+        45deg,
+        rgba(29, 236, 197, 0.5),
+        rgba(91, 14, 214, 0.5) 100%
+      ); 
 }
 </style>
 // https://silvawebdesigns.com/bootstrap-4-mobile-nav-bar-slide-from-left-right/
