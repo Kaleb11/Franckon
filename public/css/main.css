@@ -161,6 +161,7 @@ h6,
     font-weight: bold;
     color: #33475c;
     margin: 0px;
+    font-family: "Trirong", serif;
 }
 
 h1,
@@ -261,6 +262,7 @@ h4 {
 
 p {
     margin: 0px;
+    font-family: "Trirong", serif;
 }
 
 ul {
@@ -1048,6 +1050,7 @@ li.activeclass {
 ._table {
     border-collapse: collapse;
     width: 135%;
+    font-family: "Trirong", serif;
 }
 
 ._tableRow {
@@ -1081,6 +1084,7 @@ li.activeclass {
     padding: 8px 12px;
     color: #fff;
     font-size: 12px;
+    font-family: Trirong, serif;
 }
 
 ._table tr td {
@@ -1089,6 +1093,7 @@ li.activeclass {
     padding: 8px 13px;
     min-width: 141px;
     font-size: 15px;
+    font-family: Trirong, serif;
 }
 
 ._tableRow tr:first-child {
@@ -1115,6 +1120,7 @@ li.activeclass {
     padding: 8px 12px;
     color: #fff;
     font-size: 12px;
+    font-family: Trirong, serif;
 }
 
 ._tableRow tr td {
@@ -1123,6 +1129,7 @@ li.activeclass {
     padding: 8px 13px;
     min-width: 141px;
     font-size: 15px;
+    font-family: Trirong, serif;
 }
 
 

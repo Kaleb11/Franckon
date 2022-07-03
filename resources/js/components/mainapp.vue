@@ -10,7 +10,7 @@
     >
       
 
-      <v-toolbar-title style="color:wheat">FRANCKON ENGINEERING</v-toolbar-title>
+      <v-toolbar-title style="color:wheat; font-family: Trirong, serif;">FRANCKON ENGINEERING</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -38,7 +38,7 @@
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title style="color: wheat;">FRANCKON ENG.</v-toolbar-title>
+      <v-toolbar-title style="color: wheat; font-family: Trirong, serif;">FRANCKON ENG.</v-toolbar-title>
 
       <v-spacer></v-spacer>
 <!-- <vuetify-audio :file="rr.soundurl" autoPlay=true flat=true ></vuetify-audio> -->
@@ -255,7 +255,7 @@
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
         </v-list-item-avatar> -->
 
-      <v-list-item-title v-for="(rle,i) in roles" :key="i" style="color: white;" v-if="user.role_id == rle.id"><b>FRANCKON ENGINEERING</b></v-list-item-title>
+      <v-list-item-title v-for="(rle,i) in roles" :key="i" style="color: white; font-family: Trirong, serif;" v-if="user.role_id == rle.id"><b>FRANCKON ENGINEERING</b></v-list-item-title>
         <v-btn style="color: white;background-color: #001B3B;"
           icon
           @click.stop="mini = !mini"
@@ -277,7 +277,7 @@
 
         
       </v-list-item>
-      <v-list-item-title style="text-align: center; color: white;" class="mx-2" v-for="(rle,i) in roles" :key="i" v-if="user.role_id == rle.id"><b>{{user.fullName}}({{rle.roleName}})</b></v-list-item-title>
+      <v-list-item-title style="text-align: center; color: white; font-family: Trirong, serif;" class="mx-2" v-for="(rle,i) in roles" :key="i" v-if="user.role_id == rle.id"><b>{{user.fullName}}({{rle.roleName}})</b></v-list-item-title>
         <div style="padding: 13px;"></div>
         <v-divider style="border-color: wheat;"></v-divider>
         <div style="padding: 5px;"></div>
@@ -287,7 +287,7 @@
                   <v-list-item-icon style="margin-left:-13px; color:white"><v-icon class="mx-1" style="color:white;" v-for="iconItem in icons" :key="iconItem.iconName" v-if="iconItem.routerName == menuItem.name"  >{{iconItem.iconName}}</v-icon> </v-list-item-icon>
 
                
-                  <v-list-item-content style="margin-top: -8%; margin-left: -21px; color:white;"><v-list-item-title>{{menuItem.resourceName}}</v-list-item-title>
+                  <v-list-item-content style="margin-top: -8%; margin-left: -21px; color:white; font-family: Trirong, serif;"><v-list-item-title>{{menuItem.resourceName}}</v-list-item-title>
           </v-list-item-content>
          
         </v-list-item>
