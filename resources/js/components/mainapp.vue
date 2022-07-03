@@ -223,11 +223,11 @@
           >
             <v-list-item-title>Option {{ n }}</v-list-item-title>
           </v-list-item> -->
-          <v-list-item >
-            <v-list-item-title><v-icon class="mx-2">mdi-account</v-icon>Profile</v-list-item-title>
+          <v-list-item style="color:black; font-family: Trirong, serif;">
+            <v-list-item-title style="color:black; font-family: Trirong, serif;"><v-icon class="mx-2">mdi-account</v-icon>Profile</v-list-item-title>
           </v-list-item>
           <v-list-item href="/logout" @click="logout">
-            <v-list-item-title><v-icon class="mx-2">logout</v-icon>Logout</v-list-item-title>
+            <v-list-item-title style="color:black; font-family: Trirong, serif;"><v-icon class="mx-2">logout</v-icon>Logout</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -292,9 +292,9 @@
          
         </v-list-item>
 
-          <v-list-item style="color:white;" two-line href="/logout" @click="logout">
+          <v-list-item style="color:white; font-family: Trirong, serif;" two-line href="/logout" @click="logout">
             
-            <v-list-item-icon style="margin-left:-13px">
+            <v-list-item-icon style="margin-left:-13px; font-family: Trirong, serif;">
               
               <v-icon style="color:white;" class="mx-1">logout</v-icon>
             </v-list-item-icon>
