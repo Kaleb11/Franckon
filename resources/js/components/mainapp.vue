@@ -9,8 +9,8 @@
       fixed
     >
       
-
-      <v-toolbar-title style="color:wheat; font-family: Trirong, serif;">FRANCKON ENGINEERING</v-toolbar-title>
+      
+      <v-toolbar-title style="color:#001B3B; font-family: Trirong, serif;">FRANCKON ENGINEERING</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -38,7 +38,7 @@
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-      <v-toolbar-title style="color: wheat; font-family: Trirong, serif;">FRANCKON ENG.</v-toolbar-title>
+      <v-toolbar-title style="color: #001B3B; font-family: Trirong, serif;">FRANCKON ENG.</v-toolbar-title>
 
       <v-spacer></v-spacer>
 <!-- <vuetify-audio :file="rr.soundurl" autoPlay=true flat=true ></vuetify-audio> -->
@@ -255,7 +255,7 @@
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
         </v-list-item-avatar> -->
 
-      <v-list-item-title v-for="(rle,i) in roles" :key="i" style="color: white; font-family: Trirong, serif;" v-if="user.role_id == rle.id"><b>FRANCKON ENGINEERING</b></v-list-item-title>
+      <v-list-item-title v-for="(rle,i) in roles" :key="i" style="color: #001B3B; font-family: Trirong, serif;" v-if="user.role_id == rle.id"><b>FRANCKON ENGINEERING</b></v-list-item-title>
         <v-btn style="color: white;background-color: #001B3B;"
           icon
           @click.stop="mini = !mini"
