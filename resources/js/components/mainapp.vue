@@ -3,7 +3,7 @@
   <v-app-bar
       v-show="!$store.state.user"
       height="63px"
-      color="#001B3B"
+      color="rgb(128 109 237)"
       dense
       dark
       fixed
@@ -31,7 +31,7 @@
    
     <v-app-bar
       height="63px"
-      color="#001B3B"
+      color="rgb(128 109 237)"
       dense
       dark
       fixed

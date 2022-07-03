@@ -3809,7 +3809,7 @@ i.cross_icon {
     flex: 1 1 auto;
     max-width: 100%;
     position: relative;
-    background-color: bisque;
+    background-color: #625c70;
 }
 
 .list-title .v-list-item__title {
@@ -3825,6 +3825,7 @@ i.cross_icon {
     margin-left: -27px;
     margin-top: 46px;
     padding: 5px;
+    font-family: "Trirong", serif;
 }
 
 #rcorners1 {
@@ -3864,7 +3865,7 @@ i.cross_icon {
 }
 
 .bc {
-    background-color: bisque;
+    background-color: #625c70#625c70;
 }
 
 .bg-active {
@@ -3886,7 +3887,7 @@ i.cross_icon {
 
 html {
     zoom: 90%;
-    background-color: bisque;
+    background-color: #625c70;
 }
 
 .pt5 {

@@ -14,7 +14,7 @@
 					<div class="col-6 col-md-10 col-lg-10">
 					<p class="_title0" v-if="projectName">{{projectName}}</p></div>
 					<div class="col-6 col-md-2 col-lg-2">
-					<Button v-if="isWritePermitted" @click="addModal=true"  style="margin-left: 23%;"><Icon type="md-add" />Add New Item</Button></div>
+					<Button v-if="isWritePermitted" @click="addModal=true"  style="margin-left: 23%; font-family: Trirong, serif;"><Icon type="md-add" />Add New Item</Button></div>
 					</div>
 
 
@@ -912,7 +912,8 @@
 			v-model="addModal"
 			title="Add Item Data"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
 			
             <div class="space">
 			<Input type="text" v-model="data.itemType" autocomplete="name" placeholder="Item type" />
@@ -968,7 +969,8 @@
 			v-model="editModal"
 			title="Edit Item"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
 			<Input v-model="editData.roleName" />
 			<Checkbox v-model="editData.isAdmin">Is Admin?</Checkbox>
 			<div slot="footer">
@@ -994,7 +996,8 @@
         </div>
         </Modal>
      <Modal :mask-closable="false"
-			:closable="false" v-model="deleteBoughtInfo" width="360">
+			:closable="false" v-model="deleteBoughtInfo" width="360"
+			style="font-family: Trirong, serif;">
         <p slot="header" style="color:#f60;text-align:center">
             <icon type="ios-information-circle"></icon>
             <span>Remove confirmation</span>
@@ -1011,7 +1014,8 @@
         </Modal>
 
         <Modal :mask-closable="false"
-			:closable="false" v-model="deleteUndelivered" width="360">
+			:closable="false" v-model="deleteUndelivered" width="360"
+			style="font-family: Trirong, serif;">
         <p slot="header" style="color:#f60;text-align:center">
             <icon type="ios-information-circle"></icon>
             <span>Delete undelivered confirmation</span>
@@ -1028,7 +1032,7 @@
         </Modal>
 
 		<Modal v-model="resetConfirm" width="360">
-        <p slot="header" style="text-align:center">
+        <p slot="header" style="text-align:center; font-family: Trirong, serif;">
             <!-- <icon type="ios-information-circle"></icon> -->
             <span>Reset confirmation</span>
         </p>
@@ -1048,7 +1052,8 @@
 
 
        <Modal v-model="undeliveredRsn" width="360">
-        <p slot="header" style="text-align:center">
+        <p slot="header" style="text-align:center; font-family: Trirong, serif;"
+		 >
             <!-- <icon type="ios-information-circle"></icon> -->
             <span>Undelivered reason</span>
         </p>
@@ -1064,7 +1069,7 @@
 
 		<Modal :mask-closable="false"
 		 :before-close="cancel"
-			v-model="shwReset" width="707px" height="auto" style="height: auto; width: 623px;">
+			v-model="shwReset" width="707px" height="auto" style="height: auto; width: 623px; font-family: Trirong, serif;">
         <p slot="header" style="text-align:center">
             <!-- <icon type="ios-information-circle"></icon> -->
             <span>Reset information</span>
@@ -1080,7 +1085,7 @@
         </Modal>
 		<deleteModal></deleteModal>
     <!-- Full screen modal -->
-		<Modal v-model="viewInfoModal" fullscreen title="Role Info">
+		<Modal v-model="viewInfoModal" fullscreen title="Role Info" style="font-family: Trirong, serif;">
                <p>Role Name: {{viewData.roleName}}</p>
 			   <p>Created at: {{viewData.created_at}}</p>
 			   <div slot="footer">
@@ -1091,7 +1096,8 @@
 			v-model="imageModal"
 			title="Add bought information"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
             
 			<Input autocomplete="on" v-model="singleItem.purchasedCompany" type="text" placeholder="Purchased company name" />
             <!-- <div class="space" style="padding: 8px;"></div> -->
@@ -1140,7 +1146,8 @@
 			v-model="editReset"
 			title="Edit reset"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
 			<Input type="text" autocomplete="on" v-model="itm.purchasedCompany" placeholder="Purchased Company Name" />
             <div class="space" style="padding: 8px;"></div>
 			

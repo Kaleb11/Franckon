@@ -233,6 +233,7 @@
 </v-card>
 						
 			<Modal
+			style="font-family: Trirong, serif;"
 			v-model="addModal"
 			title="Add admin"
 			:mask-closable="false"
@@ -248,12 +249,12 @@
             <Input type="password" autocomplete="password" v-model="data.password" placeholder="Password" />
             </div>
             <div class="space">
-                <Select v-model="data.role_id"  placeholder="Select Admin Type">
+                <Select v-model="data.role_id" style="font-family: Trirong, serif;" placeholder="Select Admin Type">
                    <Option :value="r.id" v-for="(r, i) in roles" :key="i" v-if="roles.length">{{r.roleName}}</Option>
                 </Select>
             </div>
 			 <div class="space" v-if="data.role_id == '4'">
-                <Select v-model="data.category_id"  placeholder="Select Project Type">
+                <Select v-model="data.category_id" style="font-family: Trirong, serif;" placeholder="Select Project Type">
                    <Option :value="p.id" v-for="(p, i) in projects" :key="i" v-if="projects.length">{{p.projectName}}</Option>
                 </Select>
             </div>
@@ -323,7 +324,8 @@
 			v-model="editModal"
 			title="Edit admin"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
 			<div class="space">
             <Input type="text" autocomplete="name" v-model="editData.fullName" />
             </div>

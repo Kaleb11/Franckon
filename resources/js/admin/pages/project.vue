@@ -13,7 +13,7 @@
 						<div class="col-8 col-md-10 col-lg-10">
 					<p class="_title0">Projects</p></div>
 					<div class="col-4 col-md-2 col-lg-2">
-					<Button v-if="isWritePermitted" @click="AddModal()" style="margin-left: -28px;"><Icon type="md-add" />Add project</Button></div>
+					<Button v-if="isWritePermitted" @click="AddModal()" style="margin-left: -28px; font-family: Trirong, serif;"><Icon type="md-add" />Add project</Button></div>
                     </div>
                     <div class="space"></div>
 
@@ -135,7 +135,8 @@
 			v-model="imageModal"
 			title="Add"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
             
 			<Input autocomplete="on" v-model="data.projectName" type="text" placeholder="Add project name" />
             <!-- <div class="space" style="padding: 8px;"></div> -->
@@ -185,7 +186,8 @@
 			v-model="editModal"
 			title="Edit project"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
 			<Input type="text" autocomplete="on" v-model="editData.projectName" v-if="!hasInventory" placeholder="Add project name" />
 			<Input type="disabled" readonly v-model="editData.projectName" v-if="hasInventory"/>
             <div class="space" style="padding: 8px;"></div>
@@ -224,7 +226,7 @@
 		</Modal>
             
     <!-- Full screen modal -->
-		<Modal v-model="viewInfoModal" fullscreen title="Category Info">
+		<Modal v-model="viewInfoModal" fullscreen title="Category Info" style="font-family: Trirong, serif;">
                <p>Category Name: {{viewData.categoryName}}</p>
 			   <p>Icon Image</p>
 			   <div class="demo-infoview-list" v-if="viewData.iconImage">

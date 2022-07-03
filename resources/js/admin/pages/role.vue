@@ -13,7 +13,7 @@
 					<div class="col-6 col-md-10 col-lg-10">
 					<p class="_title0">Role Management</p></div>
 					<div class="col-6 col-md-2 col-lg-2">
-						<Button v-if="isWritePermitted" @click="addModal=true" style="margin-left:29px"><Icon type="md-add" />Add a new role</Button></div>
+						<Button v-if="isWritePermitted" @click="addModal=true" style="margin-left:29px; font-family: Trirong, serif;"><Icon type="md-add" />Add a new role</Button></div>
                     </div>
 					<div class="_overflow _table_div">
 						<table class="_tableRow">
@@ -61,7 +61,8 @@
 			v-model="addModal"
 			title="Add role"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
 			<Input v-model="data.roleName" placeholder="Add role name" />
 			<Checkbox v-model="data.isAdmin">Is Admin?</Checkbox>
 			<div slot="footer">
@@ -74,7 +75,8 @@
 			v-model="editModal"
 			title="Edit role"
 			:mask-closable="false"
-			:closable="false">
+			:closable="false"
+			style="font-family: Trirong, serif;">
 			<Input type="text" autocomplete="on" v-model="editData.roleName" />
 			<Checkbox v-model="editData.isAdmin">Is Admin?</Checkbox>
 			<div slot="footer">
@@ -97,7 +99,7 @@
         </modal> -->
 		<deleteModal></deleteModal>
     <!-- Full screen modal -->
-		<Modal v-model="viewInfoModal" fullscreen title="Role Info">
+		<Modal v-model="viewInfoModal" fullscreen title="Role Info" style="font-family: Trirong, serif;">
                <p>Role Name: {{viewData.roleName}}</p>
 			   <p>Created at: {{viewData.created_at}}</p>
 			   <div slot="footer">

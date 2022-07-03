@@ -1,7 +1,7 @@
 <template>
    <div class="container">
-		    
-            <div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20 col-md-5" style="background-color: #001B3B">
+		    <!-- #001B3B -->
+            <div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20 col-md-5" style="background-color: black">
              
                <div class="login_header">
                    <h1 style="color:white">Login to the Franckon</h1>
@@ -15,8 +15,8 @@
                 </div>
                 <div class="login_footer">
                      <!-- <Button type="primary" @click="login()" :disabled="isLogging" :loading="isLogging">{{isLogging ? 'Logging...' : 'Login'  }}</Button> -->
-                     <Button type="primary" style="color:aliceblue; background: black;" v-if="loading" loading shape="circle">Logging...</Button>
-                     <Button type="primary" style="color:aliceblue; background: black;" v-if="!loading" @click="login()">Login</Button>
+                     <Button type="primary" style="color:aliceblue; background: black; font-family: Trirong, serif;" v-if="loading" loading shape="circle">Logging...</Button>
+                     <Button type="primary" style="color:aliceblue; background: black; font-family: Trirong, serif;" v-if="!loading" @click="login()">Login</Button>
                      
                 </div>
               

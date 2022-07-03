@@ -15,7 +15,7 @@
 					<p class="_title0">Role Management</p></div>
 
 					<div class="col-6 col-md-2 col-lg-2">
-						<Select v-model="data.id"  @on-change="changeAdmin" placeholder="Select Admin Type" style="width:204px;margin-left: -37px;">
+						<Select v-model="data.id"  @on-change="changeAdmin" placeholder="Select Admin Type" style="width:204px;margin-left: -37px; font-family: Trirong, serif;">
                    <Option :value="r.id" v-for="(r, i) in roles" :key="i" v-if="roles.length">{{r.roleName}}</Option>
                 </Select></div>
 			    </div>
@@ -43,7 +43,8 @@
 							</tr>
 								<!-- ITEMS -->
                             <div class="center_button">
-                                 <Button v-if="isWritePermitted" type="primary" :loading="isSending" :disabled="isSending" @click="assignRoles">Assign</Button>
+								 <Button v-if="isWritePermitted && loading" type="primary"   style="font-family: Trirong, serif;" loading>Assigning...</Button>
+                                 <Button v-if="isWritePermitted && !loading" type="primary"  @click="assignRoles" style="font-family: Trirong, serif;">Assign</Button>
 							</div>
 								<!-- ITEMS -->
 							
@@ -87,11 +88,13 @@ export default{
 				{resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name:'assign_role'},
 				{resourceName: 'Inventory data', read: false, write: false, update: false, delete: false, name:'inventory_data'},
 			],
-			spinShow: true
+			spinShow: true,
+			loading: false
 		 }
 	 },
 	 methods : {
         async assignRoles(){
+			this.loading = true
 			let data = JSON.stringify(this.resources)
 			const res = await this.callApi('post','app/assign_roles', {'permission':data, id: this.data.id})
             if(res.status==200){
@@ -106,6 +109,7 @@ export default{
 			}else{
 				this.swr()
 			}
+			this.loading = false
 		},
 		changeAdmin(){
 			console.log("The id is",this.data.id)
