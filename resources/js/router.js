@@ -12,11 +12,19 @@ import notfound from './admin/pages/notfound'
 import project from './admin/pages/project'
 import store from './store'
 import inventoryData from './admin/pages/inventoryData'
+import profile from './admin/pages/profile'
 const routes = [{
         path: '/projects',
         component: project,
         meta: { requiresAuth: true },
         name: 'projects',
+        //beforeEnter: checkAuth
+    },
+    {
+        path: '/profile',
+        component: profile,
+        meta: { requiresAuth: true },
+        name: 'profile',
         //beforeEnter: checkAuth
     },
     // {
@@ -51,7 +59,7 @@ const routes = [{
         path: '/login',
         component: login,
         name: 'login',
-        meta: { requiresAuth: false },
+        meta: { requiresVisitor: true },
         //beforeEnter: checkAuth
 
     },
@@ -98,33 +106,36 @@ const router = new Router({
     routes
 })
 router.beforeEach((to, from, next) => {
-        // if (window.localStorage.getItem('storedData') !== null && to.path == '/login') {
-        //     next(from.path)
-        //     return
-        // }
 
-        (function() {
-            window.onpageshow = function(event) {
-                if (event.persisted) {
-                    if (window.localStorage.getItem('storedData') && to.path == '/login') {
+        // console.log("USER: ", ))
+        // window.localStorage.getItem('storedData') && to.path == '/login'
+        const isLoggedIn = Boolean(window.localStorage.getItem('storedData'));
+        if (to.matched.some((r) => r.meta.requiresAuth)) {
+            if (isLoggedIn) {
+                console.log('1st')
+                next()
+            } else {
+                console.log('2nd')
+                next({
+                    name: 'login'
+                })
+            }
+        } else if (to.matched.some((r) => r.meta.requiresVisitor)) {
+            if (isLoggedIn) {
+                console.log('3rd')
+                next({
+                    name: "projects"
+                })
+            } else {
+                console.log('4th')
+                next()
+            }
+        }
 
-                        console.log("Ezhiga")
-                        store.state.user = true
-                        router.push('/projects')
-                        return window.location.reload()
 
-                    } else {
 
-                        console.log("Ezhigaaa")
-                        store.state.user = false
-                        next('/login')
-                        return window.location.reload()
-                    }
-                    // window.location.reload();
-                    //window.location.pathname('login')
-                }
-            };
-        })();
+        return;
+
 
         if (window.localStorage.getItem('storedData') === null && to.path != '/login') {
             //console.log("Ezhiga")

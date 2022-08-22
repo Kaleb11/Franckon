@@ -24,13 +24,19 @@ use App\Events\NotificationProjectPend;
 
 class admincontroller extends Controller
 {
-    public function __construct()
-{
-    if(!Auth::check()){
-        return redirect('/login');
-    }
-}
+//     public function __construct()
+// {
+//     if(!Auth::check()){
+//         return redirect('/login');
+//     }
+// }
     public function index(Request $request){
+        // if ((time() - Session::activity()) > (Config::get('session.lifetime') * 60))
+        //     {
+        //     // Session expired
+        //     }
+        // echo "Check auth user".Auth::check();
+        // echo "Check user".Auth::user();
 
         // First check if you are loggedin and admin user
         if(!Auth::check() && $request->path() != 'login'){
@@ -46,7 +52,7 @@ class admincontroller extends Controller
                 return redirect('/login');
             }
             if($request->path() == 'login'){
-                return redirect('/projects');
+                return redirect('/profile');
                 //return redirect('/login');
             }
         return $this->checkForPermission($user,$request);
@@ -84,7 +90,7 @@ class admincontroller extends Controller
     }
     
      if($hasPermission) return view('welcome');
-     return redirect('/projects');
+     return redirect('/profile');
      //return view('notfound');
      echo $permission[0]->name;
      echo $request->path();

@@ -75,14 +75,16 @@ export default{
 			permissons: [],
 			//readApi: 'app/get_tags',writeApi: 'app/create_tag', updateApi: 'app/update_tag', deleteApi: 'app/delete_tag'
 			resources : [
-				{resourceName: 'projects', read: false, write: false, update: false, delete: false, name:'projects'},
-				{resourceName: 'Adminusers', read: false, write: false, update: false, delete: false, name:'adminusers'},
+				{resourceName: 'Profile', read: false, write: false, update: false, delete: false, name:'profile'},
+				{resourceName: 'Projects', read: false, write: false, update: false, delete: false, name:'projects'},
+				{resourceName: 'Admin users', read: false, write: false, update: false, delete: false, name:'adminusers'},
 				{resourceName: 'Role', read: false, write: false, update: false, delete: false, name:'role'},
 				{resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name:'assign_role'},
 				{resourceName: 'Inventory data', read: false, write: false, update: false, delete: false, name:'inventory_data'},
 			],
 			defaultResourcesPermission : [
-				{resourceName: 'projects', read: false, write: false, update: false, delete: false, name:'projects'},
+				{resourceName: 'Profile', read: false, write: false, update: false, delete: false, name:'profile'},
+				{resourceName: 'Projects', read: false, write: false, update: false, delete: false, name:'projects'},
 				{resourceName: 'Adminusers', read: false, write: false, update: false, delete: false, name:'adminusers'},
 				{resourceName: 'Role', read: false, write: false, update: false, delete: false, name:'role'},
 				{resourceName: 'Assign Role', read: false, write: false, update: false, delete: false, name:'assign_role'},

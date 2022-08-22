@@ -52,7 +52,7 @@
 						<div class="row">
 
 
-                <div  v-for="(siProject, i) in singleProject" :key="i"  v-if="singleProject.length && $store.state.user.role_id == 4">
+                <div  v-for="(siProject, i) in singleProject" :key="i"  v-if="singleProject.length && usr.role_id == 4">
 					
 					 <div class="col-12 col-md-4 col-lg-3">
 							
@@ -84,7 +84,7 @@
 
 
 
-					     <div  v-for="(category, i) in categories" :key="i" v-if="categories.length && ($store.state.user.role_id == 1 || $store.state.user.role_id == 2 || $store.state.user.role_id == 3 || $store.state.user.role_id == 5)">
+					     <div  v-for="(category, i) in categories" :key="i" v-if="categories.length && (usr.role_id == 1 || usr.role_id == 2 || usr.role_id == 3 || usr.role_id == 5)">
 						    <div class="col-12 col-md-4 col-lg-3">
 						
 						      
@@ -112,7 +112,7 @@
 			</div>
 			</div>
 
-						<div class="pagspace" v-if="$store.state.user.role_id != 4">
+						<div class="pagspace" v-if="usr.role_id != 4">
 						   
 							<Page :total="pageInfo.total"
 							      :current="pageInfo.current_page"
@@ -304,13 +304,14 @@ export default{
 			pageInfo:null,
 			str:'',
 			hasInventory:false,
-			loading:false
+			loading:false,
+			usr:{},
 		 }
 	 },
 	 
 	 methods : {
 		async addCategory(){
-		  this.data.requestUser = this.$store.state.user.fullName
+		  this.data.requestUser = this.usr.fullName
           if(this.data.projectName.trim()=='') return this.error('Category name is required')
 		  if(this.data.requestUser=='') return this.error('Icon image is required')
 		  this.isAdding=true
@@ -595,6 +596,7 @@ export default{
 				
 
 				this.categories = res.data.data
+				console.log('The best categories',this.categories)
 				this.categories.forEach((element)=>{
 					console.log('The true here')
 					element.nofCount=0;
@@ -628,9 +630,9 @@ export default{
 		 
 	        this.getCategoryData()
 			this.searchProjectData()
-
-    
-			
+            const user = window.localStorage.getItem('storedData');
+            this.usr = JSON.parse(user)
+			console.log("-------------", this.usr.role_id)
 			
 			// this.notification.forEach(async (not) => {
 			// const rr = await this.callApi('get',`/project/notification/pending/${not.project_id}`);	

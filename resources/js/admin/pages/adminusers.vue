@@ -445,7 +445,7 @@ export default{
 					{ text: 'User type', value: 'fullName' },
 					{ text: 'Date', value: 'created_at' },
 					{ text: 'Action', value: 'fullName' },
-        ],
+           ],
 			data : {
 				fullName:'',
                 email:'',
@@ -491,308 +491,308 @@ export default{
 		 }
 	 },
 	 methods : {
-		 updatePagination (pagination) {
-			console.log('update:pagination', pagination)
-		},
-		async addAdmin(){
-          if(this.data.fullName.trim()=='' || this.data.fullName == '') return this.error('User name is required')
-          if(this.data.email.trim()=='' || this.data.email== '') return this.error('Email is required')
-          if(this.data.password.trim()=='' || this.data.password == '') return this.error('Password is required')
-		  if(this.data.photo=='') return this.error('The user photo is required')
-          if(!this.data.role_id) return this.error('Role is required')
-		  if(this.data.role_id == 4){
-		  if(!this.data.category_id) return this.error('Project name is required')}
-		  this.isAdding=true
-		
-          
-		    const res = await this.callApi('post','/app/create_user',this.data)
-		    this.res = res
-	      if(this.res.status===201){
-              if(this.data.role_id != 4){
-		      this.users.unshift(res.data)}
-			  this.getUserData()
-              this.success('Admin user has been added successfully!')
-			  this.addModal = false
-			  this.data.fullName = ''
-              this.data.email = ''
-              this.data.password = ''
-              this.data.role_id = 1,
-			  this.data.photo=''
-			  this.$refs.uploads.clearFiles()
-			  this.isAdding=false
-			 
-		  }else{
-			
-			this.isAdding=false
-	        if(this.res.status==422){
-			
-			   
-		  
-                console.log(this.res.data.errors)
-                for(let i in this.res.data.errors){
-                    console.log(this.res.data.errors[i])
-                    this.error(this.res.data.errors[i])
-                }
-				// if(res.data.errors.tagName){
-				// 	this.error(res.data.errors.tagName[0])
-				// }
-                //  console.log(res.data.errors.tagName)
-			}else{
-				
-				this.swr()
-			}
-			  
-		  }
-		 },
-
-        async editAdmin(){
-          if(this.editData.fullName.trim()=='' || this.editData.fullName == '') return this.error('Full name is required')
-          if(this.editData.email.trim()=='' || this.editData.email == '') return this.error('Email is required')
-          if(!this.editData.role_id) return this.error('Role is required')
-		  if(this.editData.photo=='') return this.error('User Photo is required')
-		//   this.editData.photo = this.editData.photo
-		  if(this.editData.role_id == 4){
-		  if(!this.editData.category_id) return this.error('Project name is required')}
-		//   this.loading = true
-		  const res = await this.callApi('put','/app/update_user',this.editData)
-	      if(res.status===200){
-		    this.users[this.index].fullName= this.editData.fullName
-			this.users[this.index].email = this.editData.email
-			this.users[this.index].photo = this.editData.photo
-			this.users[this.index].role_id = this.editData.role_id
-              this.success('User has been edited successfully!')
-			  this.editModal = false
-			  this.isIconImageNew=false
-			  this.editData.photo=''
-			  this.$refs.editDataUploads.clearFiles()
-			  if(this.$store.state.user.id == this.editData.id){
-				  location.reload()
-			  }
-			  //this.data.tagName = ''
-		  }else{
-	        if(res.status==422){
-                for(let i in res.data.errors){
-                    console.log(res.data.errors[i])
-                    this.error(res.data.errors[i])
-                }
-				// if(res.data.errors.tagName){
-				// 	this.error(res.data.errors.tagName[0])
-				// }
-                //  console.log(res.data.errors.tagName)
-			}else{
-				
-				this.swr()
-			}
-			  
-		  }
-		 },
-		async showEditModal(user,index){
-			const res = await this.callApi('get', `/app/get/user/byid?id=${user.id}`)
-			if(res.status==200){
-				this.isOnEditing=true
-				let obj = {
-					id:user.id,
-					fullName:user.fullName,
-					email:user.email,
-					photo:user.photo,
-					password:user.password,
-					category_id:res.data[0].category_id,
-					role_id:user.role_id,
-				}
-				this.editData = obj
-				this.editModal=true}
-			else{
-		       this.swr()
-			}
-			this.index = index
-			this.isEditingg=false
-	     },
-		// async deleteTag(){
-        //     this.isDeleting =true
-		// 	const res = await this.callApi('delete','app/delete_tag',this.deleteItem)
-		// 	if(res.status==200){
-		// 	    this.tags.splice(this.deletingIndex,1)
-		// 		this.success('Tag has been deleted successfully!!!')
-		// 	}else{
-		// 		this.swr()
-		// 	}
-		// 	this.isDeleting = false
-		// 	this.showDeleteModal = false
-		// },
-		showDeletingmodal(user,i){
-			const deleteModalObj = {
-            showDeleteModal: true,
-            deleteUrl: 'app/delete_user',
-            data: user,
-            deletingIndex: i,
-            isDeleted: false,
-			msg: 'Are you sure delete this user?',
-			successmsg:'User has been deleted successfully!!!'
-        }
-		this.$store.commit('setDeletingModalObj',deleteModalObj)
-		console.log('User is on deleting')
-			// this.deleteItem = tag
-			// this.deletingIndex=i
-			// this.showDeleteModal = true
-            // if(!confirm('')) return
-            // //tag.isDeleting = true
-			// this.$set(tag,'isDeleting',true)
-		},
-		viewInfo(user){
-			this.viewInfoModal =true
-			let obj = {
-				id:user.id,
-				fullName:user.fullName,
-                email:user.email,
-                password:user.password,
-                userType:user.userType,
-				created_at:user.created_at
-			}
-		    this.viewData = obj
-
-
-		},
-		async deleteImage(isAdd=true){
-			if(!isAdd){ // for editing.....
-			    // this.editData.iconImage=''
-			    // this.$refs.clearFiles()
-				
-                this.isIconImageNew=true
-				this.img = this.editData.photo
-			    this.editData.photo=''
-			    this.$refs.editDataUploads.clearFiles()
-				this.isAdd=false
-				
-			}else{
-			this.$refs.uploads.clearFiles() 
-			this.img = this.data.photo
-			this.data.photo=''
-			
-			}
-			const res = await this.callApi('post','app/delete_image',{photo:this.img})
-			// this.isIconImageNew=true
-			if (res.status!=200){
-               this.data.photo = this.img
-			   this.swr()
-			}
-		},
-		onClosingImage(isAdd=true){
-		   //this.isIconImageNew=false
-		   if(!isAdd){
-			 this.isOnEditing=false
-			 this.isIconImageNew=false
-			 this.editModal=false
-			 this.$refs.editDataUploads.clearFiles()
-			 this.isEditing=false
-		   }else{
-		   this.deleteImage()
-		   
-		   this.data.fullName=''
-		   this.data.email=''
-		   this.data.password=''
-		   this.data.role_id=1
-		   this.addModal=false
-		   this.isAdding=false
-		  
-		   }
-		},
-		handleView () {
-                this.visible = true;
-            },
-		handleSuccess (res, file) {
-			if(this.isOnEditing){
-				this.editData.photo = `/uploads/User photos/${res}`
-				console.log(this.editData.photo)
-			}else{
-				
-				 console.log(this.data.photo)
-			     console.log("Here")
-				 this.$store.commit('setPhoto',res)
-				 console.log("Success photo", this.$store.state.photo)
-				 
-			     this.data.photo = `/uploads/User photos/${res}`
-                 console.log(this.data.photo)
-				//  if(this.data.photo != res){
-				// 	 this.data.photo = res
-				//  }
-				 }   
-            },
-		
-        handleFormatError (file) {
-                this.$Notice.warning({
-                    title: 'The file format is incorrect',
-                    desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
-                });
-            },
-       handleMaxSize (file) {
-                this.$Notice.warning({
-                    title: 'Exceeding file size limit',
-                    desc: 'File  ' + file.name + ' is too large, no more than 2M.'
-                });
-            },
-		handleError(res,file){
-         this.$Notice.warning({
-                   title: 'The file format is incorrect',
-                    desc: `${file.errors.file.length ? file.errors.file[0] : 'Something went wrong!!'}`
-                });
-		},
-		searching () {
-          this.$refs.search.value = this.str
-        },
-		async getUserData(page = 1){
-				this.token=window.Laravel.csrfToken
-				    console.log("User permissions",this.permission)
-					const [res,resRole,proj]= await Promise.all([
-					this.callApi('get',`/app/get_users?page=${page}&total=${this.total}`),
-					this.callApi('get','/app/get_roles'),
-					this.callApi('get','/app/get_category')
-				])
-					
-					console.log(res.data)
-					if(res.status===200){
-						this.users = res.data.data
-						this.pageInfo = res.data
-						this.spinShow= false
-						this.loadvar=false
-					}else{
-						this.swr()
-					}
-					if(resRole.status===200){
-						this.projects = proj.data.data
-						console.log('Projects',this.projects)
-						this.roles = resRole.data.data
-						console.log("This is the role",this.roles)
+						updatePagination (pagination) {
+							console.log('update:pagination', pagination)
+										},
+						async addAdmin(){
+						if(this.data.fullName.trim()=='' || this.data.fullName == '') return this.error('User name is required')
+						if(this.data.email.trim()=='' || this.data.email== '') return this.error('Email is required')
+						if(this.data.password.trim()=='' || this.data.password == '') return this.error('Password is required')
+						if(this.data.photo=='') return this.error('The user photo is required')
+						if(!this.data.role_id) return this.error('Role is required')
+						if(this.data.role_id == 4){
+						if(!this.data.category_id) return this.error('Project name is required')}
+						this.isAdding=true
 						
-					}else{
-						this.swr()
-					}
-			},
-			async searchUserData(page=1){
-				   
-					const res = await this.callApi('get',`/app/search_users?str=${this.str}&page=${page}&total=${this.total}`);
-					
-					if(res.status===200){
-						this.users = res.data.data;
-						this.pageInfo = res.data;
-						console.log("Hehe", this.roles)
-								
+						
+							const res = await this.callApi('post','/app/create_user',this.data)
+							this.res = res
+						if(this.res.status===201){
+							if(this.data.role_id != 4){
+							this.users.unshift(res.data)}
+							this.getUserData()
+							this.success('Admin user has been added successfully!')
+							this.addModal = false
+							this.data.fullName = ''
+							this.data.email = ''
+							this.data.password = ''
+							this.data.role_id = 1,
+							this.data.photo=''
+							this.$refs.uploads.clearFiles()
+							this.isAdding=false
+							
+						}else{
+							
+							this.isAdding=false
+							if(this.res.status==422){
+							
+							
+						
+								console.log(this.res.data.errors)
+								for(let i in this.res.data.errors){
+									console.log(this.res.data.errors[i])
+									this.error(this.res.data.errors[i])
+								}
+								// if(res.data.errors.tagName){
+								// 	this.error(res.data.errors.tagName[0])
+								// }
+								//  console.log(res.data.errors.tagName)
 							}else{
+								
 								this.swr()
 							}
-					},
-					changePageSize(page){
-						//s page size
-						if(!this.str){
-							this.pageInfo.index = 1;
-							this.total = page;
-							this.getUserData();
-						}else{
-							this.pageInfo.index = 1;
-							this.total = page;
-							this.searchUserData();
+							
 						}
+						},
+
+						async editAdmin(){
+						if(this.editData.fullName.trim()=='' || this.editData.fullName == '') return this.error('Full name is required')
+						if(this.editData.email.trim()=='' || this.editData.email == '') return this.error('Email is required')
+						if(!this.editData.role_id) return this.error('Role is required')
+						if(this.editData.photo=='') return this.error('User Photo is required')
+						//   this.editData.photo = this.editData.photo
+						if(this.editData.role_id == 4){
+						if(!this.editData.category_id) return this.error('Project name is required')}
+						//   this.loading = true
+						const res = await this.callApi('put','/app/update_user',this.editData)
+						if(res.status===200){
+							this.users[this.index].fullName= this.editData.fullName
+							this.users[this.index].email = this.editData.email
+							this.users[this.index].photo = this.editData.photo
+							this.users[this.index].role_id = this.editData.role_id
+							this.success('User has been edited successfully!')
+							this.editModal = false
+							this.isIconImageNew=false
+							this.editData.photo=''
+							this.$refs.editDataUploads.clearFiles()
+							if(this.$store.state.user.id == this.editData.id){
+								location.reload()
+							}
+							//this.data.tagName = ''
+						}else{
+							if(res.status==422){
+								for(let i in res.data.errors){
+									console.log(res.data.errors[i])
+									this.error(res.data.errors[i])
+								}
+								// if(res.data.errors.tagName){
+								// 	this.error(res.data.errors.tagName[0])
+								// }
+								//  console.log(res.data.errors.tagName)
+							}else{
+								
+								this.swr()
+							}
+							
+						}
+						},
+						async showEditModal(user,index){
+							const res = await this.callApi('get', `/app/get/user/byid?id=${user.id}`)
+							if(res.status==200){
+								this.isOnEditing=true
+								let obj = {
+									id:user.id,
+									fullName:user.fullName,
+									email:user.email,
+									photo:user.photo,
+									password:user.password,
+									category_id:res.data[0].category_id,
+									role_id:user.role_id,
+								}
+								this.editData = obj
+								this.editModal=true}
+							else{
+							this.swr()
+							}
+							this.index = index
+							this.isEditingg=false
+						},
+						// async deleteTag(){
+						//     this.isDeleting =true
+						// 	const res = await this.callApi('delete','app/delete_tag',this.deleteItem)
+						// 	if(res.status==200){
+						// 	    this.tags.splice(this.deletingIndex,1)
+						// 		this.success('Tag has been deleted successfully!!!')
+						// 	}else{
+						// 		this.swr()
+						// 	}
+						// 	this.isDeleting = false
+						// 	this.showDeleteModal = false
+						// },
+						showDeletingmodal(user,i){
+							const deleteModalObj = {
+							showDeleteModal: true,
+							deleteUrl: 'app/delete_user',
+							data: user,
+							deletingIndex: i,
+							isDeleted: false,
+							msg: 'Are you sure delete this user?',
+							successmsg:'User has been deleted successfully!!!'
+						}
+						this.$store.commit('setDeletingModalObj',deleteModalObj)
+						console.log('User is on deleting')
+							// this.deleteItem = tag
+							// this.deletingIndex=i
+							// this.showDeleteModal = true
+							// if(!confirm('')) return
+							// //tag.isDeleting = true
+							// this.$set(tag,'isDeleting',true)
+						},
+						viewInfo(user){
+							this.viewInfoModal =true
+							let obj = {
+								id:user.id,
+								fullName:user.fullName,
+								email:user.email,
+								password:user.password,
+								userType:user.userType,
+								created_at:user.created_at
+							}
+							this.viewData = obj
+
+
+						},
+						async deleteImage(isAdd=true){
+							if(!isAdd){ // for editing.....
+								// this.editData.iconImage=''
+								// this.$refs.clearFiles()
+								
+								this.isIconImageNew=true
+								this.img = this.editData.photo
+								this.editData.photo=''
+								this.$refs.editDataUploads.clearFiles()
+								this.isAdd=false
+								
+							}else{
+							this.$refs.uploads.clearFiles() 
+							this.img = this.data.photo
+							this.data.photo=''
+							
+							}
+							const res = await this.callApi('post','app/delete_image',{photo:this.img})
+							// this.isIconImageNew=true
+							if (res.status!=200){
+							this.data.photo = this.img
+							this.swr()
+							}
+						},
+						onClosingImage(isAdd=true){
+						//this.isIconImageNew=false
+						if(!isAdd){
+							this.isOnEditing=false
+							this.isIconImageNew=false
+							this.editModal=false
+							this.$refs.editDataUploads.clearFiles()
+							this.isEditing=false
+						}else{
+						this.deleteImage()
 						
-					},
+						this.data.fullName=''
+						this.data.email=''
+						this.data.password=''
+						this.data.role_id=1
+						this.addModal=false
+						this.isAdding=false
+						
+						}
+						},
+						handleView () {
+								this.visible = true;
+							},
+						handleSuccess (res, file) {
+							if(this.isOnEditing){
+								this.editData.photo = `/uploads/User photos/${res}`
+								console.log(this.editData.photo)
+							}else{
+								
+								console.log(this.data.photo)
+								console.log("Here")
+								this.$store.commit('setPhoto',res)
+								console.log("Success photo", this.$store.state.photo)
+								
+								this.data.photo = `/uploads/User photos/${res}`
+								console.log(this.data.photo)
+								//  if(this.data.photo != res){
+								// 	 this.data.photo = res
+								//  }
+								}   
+							},
+						
+						handleFormatError (file) {
+								this.$Notice.warning({
+									title: 'The file format is incorrect',
+									desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+								});
+							},
+					handleMaxSize (file) {
+								this.$Notice.warning({
+									title: 'Exceeding file size limit',
+									desc: 'File  ' + file.name + ' is too large, no more than 2M.'
+								});
+							},
+						handleError(res,file){
+						this.$Notice.warning({
+								title: 'The file format is incorrect',
+									desc: `${file.errors.file.length ? file.errors.file[0] : 'Something went wrong!!'}`
+								});
+						},
+						searching () {
+						this.$refs.search.value = this.str
+						},
+						async getUserData(page = 1){
+								this.token=window.Laravel.csrfToken
+									console.log("User permissions",this.permission)
+									const [res,resRole,proj]= await Promise.all([
+									this.callApi('get',`/app/get_users?page=${page}&total=${this.total}`),
+									this.callApi('get','/app/get_roles'),
+									this.callApi('get','/app/get_category')
+								])
+									
+									console.log(res.data)
+									if(res.status===200){
+										this.users = res.data.data
+										this.pageInfo = res.data
+										this.spinShow= false
+										this.loadvar=false
+									}else{
+										this.swr()
+									}
+									if(resRole.status===200){
+										this.projects = proj.data.data
+										console.log('Projects',this.projects)
+										this.roles = resRole.data.data
+										console.log("This is the role",this.roles)
+										
+									}else{
+										this.swr()
+									}
+							},
+							async searchUserData(page=1){
+								
+									const res = await this.callApi('get',`/app/search_users?str=${this.str}&page=${page}&total=${this.total}`);
+									
+									if(res.status===200){
+										this.users = res.data.data;
+										this.pageInfo = res.data;
+										console.log("Hehe", this.roles)
+												
+											}else{
+												this.swr()
+											}
+									},
+									changePageSize(page){
+										//s page size
+										if(!this.str){
+											this.pageInfo.index = 1;
+											this.total = page;
+											this.getUserData();
+										}else{
+											this.pageInfo.index = 1;
+											this.total = page;
+											this.searchUserData();
+										}
+										
+									},
 	 },
 	 
 	 async created(){

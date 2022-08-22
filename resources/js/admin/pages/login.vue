@@ -4,7 +4,7 @@
             <div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20 col-md-5" style="background-color: black">
              
                <div class="login_header">
-                   <h1 style="color:white">Login to the Franckon</h1>
+                   <h1 style="color:white">Login to Franckon</h1>
                </div>
                <div v-if="err" style="margin-left: 60px"><p style="color:red; font-weight:bold;">{{err}}</p></div>
                 <div class="space">

@@ -24,7 +24,9 @@ export default new Vuex.Store({
         getDeleteModalObj(state) {
             return state.deleteModalObj
         },
-
+        getUser(state) {
+            return state.user
+        },
         getCounter(state) {
             // if (state.counter > 1002) return 'O my God, this is too big'
             // return 'Ok that is small'

@@ -1,7 +1,7 @@
 <template>
  <v-app>
   <v-app-bar
-      v-show="!$store.state.user"
+      v-show="!usr"
       height="63px"
       color="rgb(128 109 237)"
       dense
@@ -24,7 +24,7 @@
         </v-list>
       </v-menu>
     </v-app-bar>
-    <v-card class="overflow-hidden" v-if="$store.state.user" style="
+    <v-card class="overflow-hidden" v-if="usr" style="
     height: 55px;">
     <!-- color="#459c98" -->
     <!-- color="rgb(31 229 101)" -->
@@ -55,7 +55,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
          <v-btn 
-         v-if="$store.state.user.role_id != 3 && $store.state.user.role_id != 2 && $store.state.user.role_id != 5"
+         v-if="usrTwo.role_id != 3 && usrTwo.role_id != 2 && usrTwo.role_id != 5"
          icon
          v-bind="attrs"
          v-on="on"
@@ -76,7 +76,7 @@
 
 
       <!-- <v-badge
-        v-if="$store.state.user.role_id == 4"
+        v-if="usrTwo.role_id == 4"
         :content="notificationtwo.length"
         :value="notificationtwo.length"
         color="red"
@@ -90,7 +90,7 @@
         <!-- <v-icon>mdi-bell</v-icon> -->
       </v-btn>
     <v-btn
-         v-if="$store.state.user.role_id == 3 || $store.state.user.role_id == 2 || $store.state.user.role_id == 5"
+         v-if="usrTwo.role_id == 3 || usrTwo.role_id == 2 || usrTwo.role_id == 5"
          icon
          v-bind="attrs"
          v-on="on"
@@ -111,7 +111,7 @@
 
 
       <!-- <v-badge
-        v-if="$store.state.user.role_id == 4"
+        v-if="usrTwo.role_id == 4"
         :content="notificationtwo.length"
         :value="notificationtwo.length"
         color="red"
@@ -135,7 +135,7 @@
           style="margin-top:30px;max-height: 500px"
           class="overflow-y-auto" >
           <v-list-item-group >
-          <div v-for="(item, index) in notificationData" :key="item.id" v-if="$store.state.user.id == item.toUserId">
+          <div v-for="(item, index) in notificationData" :key="item.id" v-if="usrTwo.id == item.toUserId">
         
           <v-list-item>
             
@@ -159,8 +159,8 @@
            
 
 
-          <div v-if="$store.state.user.role_id != 1">
-          <div v-for="(item, index) in roleNotificationsData" :key="item.id" v-if="$store.state.user.role_id == item.role_id">
+          <div v-if="usrTwo.role_id != 1">
+          <div v-for="(item, index) in roleNotificationsData" :key="item.id" v-if="usrTwo.role_id == item.role_id">
         
           <v-list-item>
             
@@ -255,7 +255,7 @@
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
         </v-list-item-avatar> -->
 
-      <v-list-item-title v-for="(rle,i) in roles" :key="i" style="color: #001B3B; font-family: Trirong, serif;" v-if="user.role_id == rle.id"><b>FRANCKON ENGINEERING</b></v-list-item-title>
+      <v-list-item-title v-for="(rle,i) in roles" :key="i" style="color: #001B3B; font-family: Trirong, serif;" v-if="usrTwo.role_id == rle.id"><b>FRANCKON ENGINEERING</b></v-list-item-title>
         <v-btn style="color: white;background-color: #001B3B;"
           icon
           @click.stop="mini = !mini"
@@ -270,14 +270,14 @@
       <v-list dense style="color: blue;">
         <v-list-item class="px-2">
         <v-list-item-avatar  style="margin-left: 76px;height: 80px;min-width: 80px;width: 80px;"  >
-          <v-img :src="`${user.photo}`" data-holder-rendered="true"></v-img>
+          <v-img :src="`${usrTwo.photo}`" data-holder-rendered="true"></v-img>
         </v-list-item-avatar>
 
         
 
         
       </v-list-item>
-      <v-list-item-title style="text-align: center; color: white; font-family: Trirong, serif;" class="mx-2" v-for="(rle,i) in roles" :key="i" v-if="user.role_id == rle.id"><b>{{user.fullName}}({{rle.roleName}})</b></v-list-item-title>
+      <v-list-item-title style="text-align: center; color: white; font-family: Trirong, serif;" class="mx-2" v-for="(rle,i) in roles" :key="i" v-if="usrTwo.role_id == rle.id"><b>{{usrTwo.fullName}}({{rle.roleName}})</b></v-list-item-title>
         <div style="padding: 13px;"></div>
         <v-divider style="border-color: wheat;"></v-divider>
         <div style="padding: 5px;"></div>
@@ -329,7 +329,7 @@
       
     </v-main>
 </v-app>
-    <!-- <div v-if="$store.state.user">
+    <!-- <div v-if="usrTwo">
        -->
       <!--========== ADMIN SIDE MENU one ========-->
     
@@ -360,6 +360,7 @@
 <script>
 import useSound from 'vue-use-sound';
 import { mapGetters } from 'vuex';
+import store from '../store'
 export default{
   
     
@@ -378,6 +379,8 @@ export default{
       notificationData:[],
       showMenu: true,
       mm:'',
+      usr: false,
+      usrTwo: {},
       rr : { soundurl : '/uploads/Notif.mp3'} ,
       icons : [
 				{iconName: 'dashboard', routerName:"projects"},
@@ -385,6 +388,7 @@ export default{
 				{iconName: 'people', routerName:"adminusers"},
 				{iconName: 'settings_applications', routerName:"role"},
 				{iconName: 'admin_panel_settings', routerName:"assign_role"},
+        {iconName: 'person', routerName:"profile"},
         {iconName: 'rate_review', routerName:"createBlog"},
         {iconName: 'label', routerName:"blogs"},
 			],
@@ -426,8 +430,8 @@ export default{
 
   async updateNotification(){
    this.notification.forEach(async inv=>{
-					if(this.$store.state.user.id==inv.toUserId){
-					    return await this.callApi('put',`/app/update/notification/${this.user.id}`);
+					if(this.usrTwo.id==inv.toUserId){
+					    return await this.callApi('put',`/app/update/notification/${this.usrTwo.id}`);
 					}else{
             return
           }
@@ -447,7 +451,6 @@ export default{
    clearInterval(this.interval)
    },
   async created(){
-  console.log('Heyyy',this.$store.state.notifications)
     // window.Echo.channel('notification')
     //  .listen('ItemAdded',(e) =>{
          
@@ -459,22 +462,34 @@ export default{
   //      console.log('Newest',e.notifications)
   // })
     //console.log('here',moment.now())
-    this.$store.commit('setUpdateUser',this.user)
-    console.log('The user',this.user)
-    console.log("User permissions",this.permission)
-    this.$store.commit('setUserPermission',this.permission)
+   
+    // if(this.user == false){
+    //   console.log('The local storage false')
+     
+    // }
+    const usrData = window.localStorage.getItem('storedData');
+    this.usrTwo = JSON.parse(usrData)
+   
+    const isLoggedIn = Boolean(window.localStorage.getItem('storedData'));
+    this.usr = isLoggedIn
+   
+    console.log('Hello Kaleb',this.usrTwo.role_id)
     if(this.user){
+    this.$store.commit('setUpdateUser',this.user)
+    
+    console.log('Kal',store.state.user)
+    this.$store.commit('setUserPermission',this.permission)
     const res = await this.callApi('get','/app/get_roles');
     const notif = await this.callApi('get','/app/notification');
     console.log("The notification",notif.data)
     this.notification = notif.data
-    const notifRle = await this.callApi('get',`/app/notification/role/pend/${this.user.role_id}`);
+    const notifRle = await this.callApi('get',`/app/notification/role/pend/${this.usrTwo.role_id}`);
    
           // var audio = new Audio(this.rr.soundurl);
           // audio.play()
     notifRle.data.forEach(inv=>{
-    if(this.$store.state.user.role_id==inv.role_id){
-        // this.invId = this.$store.state.user.role_id
+    if(this.usrTwo.role_id==inv.role_id){
+        // this.invId = this.usrTwo.role_id
         console.log('The role', this.invId)
         console.log('Hey socket')
         return this.roleNotifications = notifRle.data
@@ -482,9 +497,9 @@ export default{
         console.log('The final')
         return
     }});
-    const notifData = await this.callApi('get',`/app/notification/data/${this.user.id}`);
+    const notifData = await this.callApi('get',`/app/notification/data/${this.usrTwo.id}`);
     this.notificationData = notifData.data
-    const notifRleData = await this.callApi('get',`/app/role/notification/data/${this.user.role_id}`);
+    const notifRleData = await this.callApi('get',`/app/role/notification/data/${this.usrTwo.role_id}`);
     this.roleNotificationsData = notifRleData.data
     if(res.status===200){
 				this.roles = res.data.data
@@ -493,11 +508,14 @@ export default{
 			}else{
 				this.swr()
 			}
+    }else{
+       if(isLoggedIn){}else{
+       localStorage.clear();}
     }
-   
+   console.log('Here is the role', this.role)
   },
 mounted(){
-  // window.Echo.channel('notification.'+this.user.id).listen('ItemAdded',(e) =>{
+  // window.Echo.channel('notification.'+this.usrTwo.id).listen('ItemAdded',(e) =>{
          
   //        console.log("The socket is here",e)
 
@@ -506,7 +524,7 @@ mounted(){
      .listen('NotificationData',(e) =>{
       // console.log("The notification data", e)
       e.invent.forEach(inv=>{
-					if(this.$store.state.user.id==inv.toUserId){
+					if(this.usrTwo.id==inv.toUserId){
 					    return this.notificationData = e.invent
 					}else{
             return
@@ -520,7 +538,7 @@ mounted(){
      .listen('NotifRleData',(e) =>{
       // console.log('Notif rle', e.invent)
       e.invent.forEach(inv=>{
-         if(this.$store.state.user.role_id==inv.role_id){
+         if(this.usrTwo.role_id==inv.role_id){
 					  return this.roleNotificationsData = e.invent
 					}else{
             return
@@ -531,14 +549,14 @@ mounted(){
 		//  this.items = e.invent.data.map(item => ({ isEditable: false, ...item }))
 		//  this.pageInfo= e.invent
     // });
-if(this.$store.state.user.role_id == 1 || this.$store.state.user.role_id == 4){
+if(this.usrTwo.role_id == 1 || this.usrTwo.role_id == 4){
  window.Echo.channel('notificationpendinvent')
      .listen('NotificationPend',(e) =>{
          console.log("Hello the notification pend request", e.invent.original);
          if(e.invent.original.notification.length === 0){
-               console.log('Hello for the 2nd time', this.user.role_id)
-               if(this.$store.state.user.id == e.invent.original.userId){
-                    console.log('Hello for the 3rd time', this.user.role_id)
+               console.log('Hello for the 2nd time', this.usrTwo.role_id)
+               if(this.usrTwo.id == e.invent.original.userId){
+                    console.log('Hello for the 3rd time', this.usrTwo.role_id)
                     return this.notifications = e.invent.original.notification
                }else{
                     console.log('The third error')
@@ -547,8 +565,8 @@ if(this.$store.state.user.role_id == 1 || this.$store.state.user.role_id == 4){
           // var audio = new Audio(this.rr.soundurl);
           // audio.play()
           e.invent.original.notification.forEach(inv=>{
-					if(this.$store.state.user.id==inv.toUserId){
-              this.invId = this.$store.state.user.role_id
+					if(this.usrTwo.id==inv.toUserId){
+              this.invId = this.usrTwo.role_id
               console.log('The role', this.invId)
               console.log('Hey socket')
 					    return this.notifications = e.invent.original.notification
@@ -567,9 +585,9 @@ if(this.$store.state.user.role_id == 1 || this.$store.state.user.role_id == 4){
        .listen('NotifRle',(e) =>{
          console.log("Hello the role notification pend request", e.invent);
          if(e.invent.original.notification.length === 0){
-               console.log('Hello for the 2nd time', this.user.role_id)
-               if(this.$store.state.user.role_id == e.invent.original.role_id){
-                    console.log('Hello for the 3rd time', this.user.role_id)
+               console.log('Hello for the 2nd time', this.usrTwo.role_id)
+               if(this.usrTwo.role_id == e.invent.original.role_id){
+                    console.log('Hello for the 3rd time', this.usrTwo.role_id)
                     return this.roleNotifications = e.invent.original.notification
                }else{
                     console.log('The third error')
@@ -578,8 +596,8 @@ if(this.$store.state.user.role_id == 1 || this.$store.state.user.role_id == 4){
           // var audio = new Audio(this.rr.soundurl);
           // audio.play()
           e.invent.original.notification.forEach(inv=>{
-					if(this.$store.state.user.role_id==inv.role_id){
-              // this.invId = this.$store.state.user.role_id
+					if(this.usrTwo.role_id==inv.role_id){
+              // this.invId = this.usrTwo.role_id
               console.log('The role', this.invId)
               console.log('Hey socket')
 					    return this.roleNotifications = e.invent.original.notification
@@ -590,7 +608,7 @@ if(this.$store.state.user.role_id == 1 || this.$store.state.user.role_id == 4){
           })
     }
 //     notification :async function(){
-//       const notif = await this.callApi('get',`/app/notification/${this.user.id}`);
+//       const notif = await this.callApi('get',`/app/notification/${this.usrTwo.id}`);
 // //       if(notif.data.length){
 // //         for (let i = 0; i < cars.length; i++) {
 // //   text += cars[i] + "<br>";
@@ -602,14 +620,15 @@ if(this.$store.state.user.role_id == 1 || this.$store.state.user.role_id == 4){
      
 //     },
 //     notificationData :async function(){
-//       const notif = await this.callApi('get',`/app/notification/data/${this.user.id}`);
+//       const notif = await this.callApi('get',`/app/notification/data/${this.usrTwo.id}`);
      
 //       return this.notificationData = notif.data
      
 //     }
   },
 computed:{
-  ...mapGetters(['getNotification'])
+  ...mapGetters({userr:'getUser'})
+ 
 },
 watch:{
   getNotification(obj){
