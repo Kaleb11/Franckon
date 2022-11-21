@@ -114,10 +114,10 @@
         </v-col>
 		<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
         <div class="_overflow _table_div">
-        <table class="_tableRow">
+        <!-- <table class="_tableRow"> -->
 								<!-- TABLE TITLE -->
 								
-							<tr>
+							<!-- <tr>
 								<th>ID</th>
 								<th>Name</th>
                                 <th>Email</th>
@@ -125,12 +125,12 @@
                                 <th>User type</th>
 								<th>Created at</th>
 								<th>Action</th>
-							</tr>
+							</tr> -->
 								<!-- TABLE TITLE -->
 
 
 								<!-- ITEMS -->
-							 <tr v-for="(user, i) in users" :key="i" v-if="users.length">
+							 <!-- <tr v-for="(user, i) in users" :key="i" v-if="users.length">
 								<td>{{user.id}}</td>
 								<td>{{user.fullName}}</td>
                                 <td>{{user.email}}</td>
@@ -144,7 +144,7 @@
 									<Button v-if="isUpdatePermitted" size="small" @click="showEditModal(user,i)">Edit</Button>
 									<Button v-if="isDeletePermitted" type="error" size="small" @click="showDeletingmodal(user,i)" :loading="user.isDeleting">Delete</Button>			
 								</td>
-							</tr>
+							</tr> -->
 								<!-- ITEMS -->
 
 								<!-- ITEMS -->
@@ -152,18 +152,33 @@
 								<!-- ITEMS -->
 
 
-						 </table></div></div>
-   
-						<!-- <v-data-table
-						    
-						    :loading="loadvar"
-							loading-text="Loading... Please wait"
-							class="elevation-3 user-table"
+						 <!-- </table> -->
+						 <!-- <v-data-table
 							:headers="headers"
 							:items="users"
-							
+							:items-per-page="pageInfo.per_page"
+							class="elevation-1"
+						></v-data-table> -->
+						 
+   
+						<v-data-table
+						    
+						    :loading="loading"
+							loading-text="Loading... Please wait"
+							:headers="headers"
+							:items="users"
+							:items-per-page="parseInt(pageInfo.per_page)"
+							:server-items-length="parseInt(pageInfo.total)"
 							:hide-default-footer="true"
-							
+                            :footer-props="{
+								showFirstLastPage: true,
+								firstIcon: 'mdi-arrow-collapse-left',
+								lastIcon: 'mdi-arrow-collapse-right',
+								prevIcon: 'mdi-minus',
+								nextIcon: 'mdi-plus'
+								}"
+
+							class="elevation-1"
 							v-if="pageInfo"  
 							
 							item-key="name"
@@ -185,14 +200,18 @@
 											<td class="text-left">{{new Date(item.created_at).toLocaleDateString("en-US")}}</td>
 											<td class="text-left">
 												<v-icon class="mx-1" v-if="isReadPermitted" type="info" @click="viewInfo(item)" size="large" color="green"> mdi-eye</v-icon>
-												<v-icon class="mx-1" v-if="isUpdatePermitted" size="large" @click="showEditModal(item.category_id,item,index)">edit</v-icon>
+												<v-icon class="mx-1" v-if="isUpdatePermitted" size="large" @click="showEditModal(item,index)">edit</v-icon>
 												<v-icon class="mx-1" v-if="isDeletePermitted" type="error" size="large" @click="showDeletingmodal(item,index)" :loading="item.isDeleting" color="red">mdi-delete</v-icon>			
 											</td>
 								</tr>
+								
 							</template>
 							
-							</v-data-table> -->
-						<div class="pagspace"  v-if="!str">
+							</v-data-table>
+							
+							<div style="
+    margin-top: 12px;
+" v-if="!str">
 						   
 							<Page 
 							:total="parseInt(pageInfo.total)" 
@@ -211,7 +230,9 @@
 						
 					
 				</div>
-				<div class="pagspace" v-if="str">
+				<div style="
+    margin-top: 12px;
+" v-if="str">
 						   
 							<Page 
 							:total="parseInt(pageInfo.total)" 
@@ -230,6 +251,8 @@
 						
 					
 				</div>
+							</div></div>
+						
 </v-card>
 						
 			<Modal
@@ -431,7 +454,7 @@ export default{
 
      data(){
 		 return{
-			
+			 options: {},
 			 headers: [
 					{
 						text: 'id',
@@ -442,7 +465,7 @@ export default{
 					{ text: 'Name', value: 'fullName' },
 					{ text: 'Email', value: 'email' },
 					{ text: 'Photo', value:'photo' },
-					{ text: 'User type', value: 'fullName' },
+					{ text: 'User type', value: 'role_id' },
 					{ text: 'Date', value: 'created_at' },
 					{ text: 'Action', value: 'fullName' },
            ],
@@ -454,6 +477,7 @@ export default{
 				category_id:'',
 				photo:''
 			},
+			loading: true,
 			editModal: false,
 			addModal : false,
 			isAdding : false,
@@ -753,7 +777,7 @@ export default{
 										this.users = res.data.data
 										this.pageInfo = res.data
 										this.spinShow= false
-										this.loadvar=false
+										this.loading=false
 									}else{
 										this.swr()
 									}
