@@ -46,12 +46,7 @@
       required
     ></v-text-field>
 
-    <!-- <v-text-field
-      v-model="password"
-      :rules="passwordRules"
-      label="Password"
-      required
-    ></v-text-field> -->
+  
    <v-text-field
             autocomplete="password"
             v-model="data.password"
