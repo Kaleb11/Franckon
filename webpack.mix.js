@@ -15,7 +15,7 @@ mix.js('resources/js/app.js', 'public/js').vue().version()
     // .postCss('resources/css/app.css', 'public/css', [
     //     //
     // ]);
-
+    // mix.styles('public/css/st.scss')
 mix.styles([
     'public/css/grid.min.css',
     'public/css/main.css',

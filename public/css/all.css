@@ -22353,7 +22353,8 @@ i.cross_icon {
     flex: 1 1 auto;
     max-width: 100%;
     position: relative;
-    background-color: #625c70;
+    background-color: #f3f3f3;
+    /* #625c70 */
 }
 
 .list-title .v-list-item__title {
@@ -22409,7 +22410,8 @@ i.cross_icon {
 }
 
 .bc {
-    background-color: #625c70#625c70;
+    background-color: #f3f3f3;
+    /* #625c70#625c70; */
 }
 
 .bg-active {
@@ -22431,7 +22433,8 @@ i.cross_icon {
 
 html {
     zoom: 90%;
-    background-color: #625c70;
+    background-color: #f3f3f3;
+    /* #625c70; */
 }
 
 .pt5 {

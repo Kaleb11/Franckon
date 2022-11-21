@@ -1,6 +1,6 @@
 <template>
  <v-app>
-  <v-app-bar
+  <!-- <v-app-bar
       v-show="!usr"
       height="63px"
       color="rgb(128 109 237)"
@@ -23,7 +23,7 @@
         
         </v-list>
       </v-menu>
-    </v-app-bar>
+    </v-app-bar> -->
     <v-card class="overflow-hidden" v-if="usr" style="
     height: 55px;">
     <!-- color="#459c98" -->
@@ -270,7 +270,7 @@
       <v-list dense style="color: blue;">
         <v-list-item class="px-2">
         <v-list-item-avatar  style="margin-left: 76px;height: 80px;min-width: 80px;width: 80px;"  >
-          <v-img :src="`${usrTwo.photo}`" data-holder-rendered="true"></v-img>
+          <v-img :src="`${userrr.photo}`" data-holder-rendered="true"></v-img>
         </v-list-item-avatar>
 
         
@@ -381,6 +381,7 @@ export default{
       mm:'',
       usr: false,
       usrTwo: {},
+      userrr: {},
       rr : { soundurl : '/uploads/Notif.mp3'} ,
       icons : [
 				{iconName: 'dashboard', routerName:"projects"},
@@ -476,7 +477,7 @@ export default{
     console.log('Hello Kaleb',this.usrTwo.role_id)
     if(this.user){
     this.$store.commit('setUpdateUser',this.user)
-    
+    this.userrr = this.user
     console.log('Kal',store.state.user)
     this.$store.commit('setUserPermission',this.permission)
     const res = await this.callApi('get','/app/get_roles');
