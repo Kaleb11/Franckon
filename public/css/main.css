@@ -1058,6 +1058,12 @@ li.activeclass {
     width: 103%;
 }
 
+
+/* .elevation-1 {
+    border-collapse: collapse;
+    width: 103%;
+} */
+
 ._table tr {}
 
 ._table tr:first-child {

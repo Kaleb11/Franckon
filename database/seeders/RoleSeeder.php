@@ -26,7 +26,7 @@ class RoleSeeder extends Seeder
         ]
     );
     DB::table('roles')->insert([
-        'roleName' =>'Buyer',
+        'roleName' =>'Purchaser',
         'isAdmin'=>true,
         'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         'permission'=>$json,

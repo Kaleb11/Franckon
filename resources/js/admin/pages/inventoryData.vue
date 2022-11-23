@@ -48,9 +48,9 @@
 
                     <div class="space"></div>
 					<div class="_overflow _table_div">
-						<table v-bind:class="{'_table': $store.state.user.role_id == 1,  '_tableRow': $store.state.user.role_id != 1}">
+						<!-- <table v-bind:class="{'_table': $store.state.user.role_id == 1,  '_tableRow': $store.state.user.role_id != 1}"> -->
 								<!-- TABLE TITLE -->
-							<tr>
+							<!-- <tr>
 								<th>Action</th>
 								<th v-show="$store.state.user.role_id == 1 || $store.state.user.role_id == 2 || $store.state.user.role_id == 3 || $store.state.user.role_id == 5">Status</th>
 								<th>Approval</th>
@@ -74,26 +74,49 @@
 								<th v-show="$store.state.user.role_id == 1 || $store.state.user.role_id == 5">Delivered Time</th>
                                 <th>Created Date</th>
 								
-							</tr>
+							</tr> -->
 								<!-- TABLE TITLE -->
     
 
 
+                        <v-data-table
+						    v-if="$store.state.user.role_id == 5"
+						    :loading="loading"
+							loading-text="Loading... Please wait"
+							:headers="storeKeeperTwoHeader"
+							:items="frmStoreItems"
+							:items-per-page="parseInt(pageInfo.per_page)"
+							:server-items-length="parseInt(pageInfo.total)"
+							:hide-default-footer="true"
+                            :footer-props="{
+								showFirstLastPage: true,
+								firstIcon: 'mdi-arrow-collapse-left',
+								lastIcon: 'mdi-arrow-collapse-right',
+								prevIcon: 'mdi-minus',
+								nextIcon: 'mdi-plus'
+								}"
+
+							class="elevation-1"
+							item-key="name"
+							style="width: 97%;margin-left: 2px;/* border-left: 23px; */"
+							
+							
+							>
 
                         <!-- Store keeper 2 -->
-                        <tr v-for="(item, i) in frmStoreItems" :key="i" v-bind:class="{'selected': item.urgent,  '': !item.urgent}" v-if="$store.state.user.role_id == 5">
-								<td>
-									
+					<template v-slot:item="{ item,index}"  v-if="$store.state.user.role_id == 5">
+                       <tr v-bind:class="{'selected': item.urgent,  '': !item.urgent}">
+								<td class="tds">
 									<Button
 									v-if="isUpdatePermitted"
 									type="default" 
-									@click="editItem(i)"
+									@click="editItem(index)"
 									class="button-action"
 									
 									>
 
 									<Icon v-if="!item.isEditable" style="color: blue;" type="ios-create-outline" />
-									<Icon v-if="item.isEditable" type="ios-document" @click="edit(item,i)" />
+									<Icon v-if="item.isEditable" type="ios-document" @click="edit(item,index)" />
 									<!-- {{item.isEditable ? 'save' : ''  }} -->
 									
 									</Button>
@@ -103,7 +126,7 @@
 									<Button
 									v-if="!item.isEditable && isDeletePermitted"
 									type="default" 
-									@click="showDeletingmodal(item,i)"
+									@click="showDeletingmodal(item,index)"
 									class="button-action"
 									>
 									{{item.isEditable ? 'save' : '' }}
@@ -178,7 +201,7 @@
 									</div>
 
 									</td>
-								<td class="pt-5">
+								<td class="pt-3-half">
 									<input        
 									v-model="item.itemType"
 									:readonly="!item.isEditable"
@@ -196,7 +219,7 @@
                                 <td  >
 									<Select v-model="item.measurenment" :disabled="!item.isEditable" :class="{'editable': item.isEditable}"
 									>
-										<Option :value="measure.name" :disabled="!item.isEditable" v-for="(measure, i) in measurenments" :key="i" v-if="measurenments.length">{{measure.name}}</Option>
+										<Option :value="measure.name" :disabled="!item.isEditable" v-for="(measure, index) in measurenments" :key="i" v-if="measurenments.length">{{measure.name}}</Option>
 										</Select>
 									<!-- <input        
 									v-model="item.measurenment"
@@ -206,13 +229,13 @@
 
 									</td>
                                 
-								<td  v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
-                                <td  v-if="item.approved=='approved' && item.withPurchase"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-                                <td   v-if="item.approved=='approved' && !item.withPurchase" ><Checkbox @input="frmStore(item,i)"  onclick="return false;" v-model="item.fromStore"><h6></h6></Checkbox></td>
+								<td class="tds" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
+                                <td class="tds" v-if="item.approved=='approved' && item.withPurchase"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
+                                <td class="tds"  v-if="item.approved=='approved' && !item.withPurchase" ><Checkbox @input="frmStore(item,index)"  onclick="return false;" v-model="item.fromStore"><h6></h6></Checkbox></td>
 
-                                <td  v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
-								<td  v-if="item.approved=='approved' && !item.withPurchase"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-                                <td   v-if="item.approved=='approved' && item.withPurchase" ><Checkbox @input="onBought(item,i)"  onclick="return false;" v-model="item.bought"><h6></h6></Checkbox></td>
+                                <td class="tds" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
+								<td class="tds" v-if="item.approved=='approved' && !item.withPurchase"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
+                                <td class="tds" v-if="item.approved=='approved' && item.withPurchase" ><Checkbox @input="onBought(item,index)"  onclick="return false;" v-model="item.bought"><h6></h6></Checkbox></td>
 
 
                                 <td  v-if="item.approved=='Pending'"><input type="text" value="Need approval" style="font-size: 11px; color: red;" readonly /></td>
@@ -229,20 +252,20 @@
 
 								<td  v-if="item.approved=='Pending'" ><input type="text" value="Need approval" style="font-size: 11px; color: red;" readonly/></td>
 								<td  v-if="item.approved=='approved' && !item.withPurchase"><input type="text" value="Disabled" style="font-size: 11px; color: red;" readonly/></td>	
-                                <td  v-if="item.approved=='approved' && item.withPurchase" @click="confirmRst(item,i)" v-bind:class="{'resetSelected': item.resetImage,  '': !item.resetImage}"><a v-if="item.resetImage"><img :src="item.resetImage" style="height: 27px;width: 32px;" v-if="item.resetImage"/></a> </td>
+                                <td  v-if="item.approved=='approved' && item.withPurchase" @click="confirmRst(item,index)" v-bind:class="{'resetSelected': item.resetImage,  '': !item.resetImage}"><a v-if="item.resetImage"><img :src="item.resetImage" style="height: 27px;width: 32px;" v-if="item.resetImage"/></a> </td>
 
 
 
                                 
 								<td  v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
 								<td  v-if="item.approved=='approved' && (!item.withPurchase && !item.fromStore)"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-                                <td    v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore)" ><Checkbox @input="checkDelivered(item,i)" v-model="item.delivered"><h6></h6></Checkbox></td>
+                                <td    v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore)" ><Checkbox @input="checkDelivered(item,index)" v-model="item.delivered"><h6></h6></Checkbox></td>
 
 
                                 
 								<td  v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
 								<td  v-if="item.approved=='approved' && (!item.withPurchase && !item.fromStore)"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-                                <td    v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore)" ><Checkbox @input="checkUnDelivered(item,i)" v-model="item.undelivered"><h6></h6></Checkbox></td>
+                                <td    v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore)" ><Checkbox @input="checkUnDelivered(item,index)" v-model="item.undelivered"><h6></h6></Checkbox></td>
                         
 								<td   class="pt-3-half">
 									<input type="text" :readonly="!item.isEditable"
@@ -250,13 +273,15 @@
 								
 
 
-                                <td  v-if="item.approved=='Pending'" ></td>
-								<td  v-if="item.approved=='approved' && !item.deliveredTime" ></td>
-								<td  v-if="item.approved=='approved' &&  item.deliveredTime">{{new Date(item.deliveredTime).toLocaleDateString("en-US")}}<span style="font-size: 11px;"><br>({{ item.deliveredTime | moment("from","now",true) }} ago)</span></td>
-                                <td  >{{new Date(item.created_at).toLocaleDateString("en-US")}}</td>
+                                <td class="tds" v-if="item.approved=='Pending'" ></td>
+								<td class="tds" v-if="item.approved=='approved' && !item.deliveredTime" ></td>
+								<td class="tds" v-if="item.approved=='approved' &&  item.deliveredTime">{{new Date(item.deliveredTime).toLocaleDateString("en-US")}}<span style="font-size: 11px;"><br>({{ item.deliveredTime | moment("from","now",true) }} ago)</span></td>
+                                <td class="tds">{{new Date(item.created_at).toLocaleDateString("en-US")}}</td>
 								
 							</tr>
-
+					        </template>
+                           </v-data-table>
+						    
 
 
 
@@ -887,7 +912,7 @@
 								<!-- ITEMS -->
 
 
-						</table>
+						<!-- </table> -->
 						<div class="pagspace">
 						   
 							<Page
@@ -1214,6 +1239,109 @@ export default{
 	components: { Treeselect },components: { Treeselect },
      data(){
 		 return{
+			headerAdmin: [
+					{
+						text: 'Action',
+						align: 'start',
+						filterable: false,
+						value: 'action',
+					},
+					{ text: 'Status', value: 'status' },
+					{ text: 'Approval', value: 'approved' },
+					{ text: 'Item Type', value:'itemType' },
+					{ text: 'Quantity', value: 'quantity' },
+					{ text: 'Measurnmet', value: 'measurnment' },
+					{ text: 'With Purchase', value: 'withPurchase' },
+					{ text: 'From Store', value: 'fromStore' },
+					{ text: 'Bought', value: 'bought' },
+					{ text: 'Purchased Company', value: 'purchasedCompany' },
+					{ text: 'Reset', value: 'reset' },
+					{ text: 'Delivered', value: 'delivered' },
+					{ text: 'Undelivered', value: 'undelivered' },
+					{ text: 'Undelivered Reason', value: 'undeliveredReason' },
+					{ text: 'Order Reason', value: 'orderReason' },
+					{ text: 'Approval 1', value: 'adminOneReason' },
+					{ text: 'Approval 2', value: 'adminTwoApproval' },
+					{ text: 'Urgent', value: 'urgent' },
+					{ text: 'Delivered Time', value: 'deliveredTime' },
+					{ text: 'Created Date', value: 'createdAt' },
+				
+           ],
+		   mainStoreKeeperHeader: [
+					{
+						text: 'Action',
+						align: 'start',
+						filterable: false,
+						value: 'action',
+					},
+					{ text: 'Status', value: 'status' },
+					{ text: 'Approval', value: 'approved' },
+					{ text: 'Item Type', value:'itemType' },
+					{ text: 'Quantity', value: 'quantity' },
+					{ text: 'Measurnmet', value: 'measurnment' },
+					{ text: 'With Purchase', value: 'withPurchase' },
+					{ text: 'From Store', value: 'fromStore' },
+					{ text: 'Created Date', value: 'createdAt' },
+				
+           ],
+		   siteEnginerHeader: [
+					{
+						text: 'Action',
+						align: 'start',
+						filterable: false,
+						value: 'action',
+					},
+					{ text: 'Approval', value: 'approved' },
+					{ text: 'Item Type', value:'itemType' },
+					{ text: 'Quantity', value: 'quantity' },
+					{ text: 'Measurnmet', value: 'measurnment' },
+					{ text: 'Order Reason', value: 'orderReason' },
+					{ text: 'Created Date', value: 'createdAt' },
+				
+           ],
+		   storeKeeperTwoHeader: [
+					{
+						text: 'Action',
+						align: 'start',
+						filterable: false,
+						value: 'action',
+						width: '103%'
+					},
+					{ text: 'Status', value: 'status' },
+					{ text: 'Approval', value: 'approved' },
+					{ text: 'Item Type', value:'itemType' },
+					{ text: 'Quantity', value: 'quantity' },
+					{ text: 'Measurnmet', value: 'measurnment' },
+					{ text: 'From Store', value: 'fromStore'},
+					{ text: 'Purchased', value: 'bought' },
+					{ text: 'Purchased Company', value: 'purchasedCompany' },
+					{ text: 'Reset', value: 'reset' },
+					{ text: 'Delivered', value: 'delivered' },
+					{ text: 'Undelivered', value: 'undelivered' },
+					{ text: 'Undelivered Reason', value: 'undeliveredReason' },
+					{ text: 'Delivered Time', value: 'deliveredTime' },
+					{ text: 'Created Date', value: 'createdAt' },
+				
+           ],
+		  purchaserHeader: [
+					{
+						text: 'Action',
+						align: 'start',
+						filterable: false,
+						value: 'action',
+					},
+					{ text: 'Status', value: 'status' },
+					{ text: 'Approval', value: 'approved' },
+					{ text: 'Item Type', value:'itemType' },
+					{ text: 'Quantity', value: 'quantity' },
+					{ text: 'Measurnmet', value: 'measurnment' },
+					{ text: 'With Purchase', value: 'withPurchase' },
+					{ text: 'Bought', value: 'bought' },
+					{ text: 'Purchased Company', value: 'purchasedCompany' },
+					{ text: 'Reset', value: 'reset' },
+					{ text: 'Created Date', value: 'createdAt' },
+				
+           ],
 			data : {
 				itemType:'',
                 measurenment:'',
@@ -1546,7 +1674,7 @@ export default{
 			// 	this.error('Something went to wrong')
 			// }
 		},
-		async checkUnDelivered(item,i){
+		async checkUnDelivered(item,index){
 			 item.total = this.total
 			 let obj = {
 				id:item.id,
@@ -1621,6 +1749,7 @@ export default{
 		async saveUndeliveredRsn(){
 			this.loading = true
 			this.ll.status = 'Failed'
+			this.ll.delivered = false
 			this.ll.urgent = false
 			this.ll.total = this.total
             const res = await this.callApi('put','/app/update/inventory_data',this.ll)
@@ -2253,6 +2382,7 @@ export default{
                 this.approvedItems[index].isEditable = !this.approvedItems[index].isEditable
 			}else if(this.$store.state.user.role_id == 5){
                 this.frmStoreItems[index].isEditable = !this.frmStoreItems[index].isEditable
+				console.log("Hey Kaleb")
 			}else{
                 this.items[index].isEditable = !this.items[index].isEditable
 			}
@@ -2331,10 +2461,10 @@ export default{
 					this.pageInfo=resTwo.data
 					this.spinShow= false
 			   }else if(this.$store.state.user.role_id == 5){
-				   console.log('The response', resFour.status)
 					this.frmStoreItems = resFour.data.data.map(item => ({ isEditable: false, ...item }))
 					this.pageInfo=resFour.data
 					this.spinShow= false
+					// console.log('Bla bla bla', this.frmStoreItems)
 			   }else{
 					this.items = res.data.data.map(item => ({ isEditable: false, ...item }))
 					//this.items = res.data.data
@@ -2498,5 +2628,8 @@ tr.selected {
 @-webkit-keyframes pulse-border {
     from, to { box-shadow: 0 0 0 0 #f5a6a68c;}
     50% { box-shadow: 0 0 0 4px #f5a6a68c;background:#f5a6a68c}
+}
+.tds {
+	min-width:141px
 }
 </style>
