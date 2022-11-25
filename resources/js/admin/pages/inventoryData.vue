@@ -792,7 +792,7 @@
 									<Button
 									v-if="isUpdatePermitted"
 									type="default" 
-									@click="editItem(i)"
+									@click="editItem(index)"
 									class="button-action"
 									
 									>
@@ -883,7 +883,7 @@
 									</div>
 
 									</td>
-								<td class="pt-5">
+								<td class="pt-3-half">
 									<input        
 									v-model="item.itemType"
 									:readonly="!item.isEditable"
@@ -918,14 +918,14 @@
                                 <td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && item.withPurchase"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
                                 <td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && !item.withPurchase" ><Checkbox @input="frmStore(item,index)" v-model="item.fromStore"><h6></h6></Checkbox></td>
 
-                                <td v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && !item.withPurchase"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-                                <td  v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && item.withPurchase" ><Checkbox @input="onBought(item,index)" v-model="item.bought"><h6></h6></Checkbox></td>
+                                <td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && !item.withPurchase"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
+                                <td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && item.withPurchase" ><Checkbox @input="onBought(item,index)" v-model="item.bought"><h6></h6></Checkbox></td>
 
 
-                                <td v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><input type="text" value="Need approval" style="font-size: 11px; color: red;" readonly /></td>
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && !item.withPurchase"><input type="text" value="Disabled" style="font-size: 11px; color: red;" readonly /></td>
-                                <td  v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && item.withPurchase"  class="pt-3-half" contenteditable="true">
+                                <td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><input type="text" value="Need approval" style="font-size: 11px; color: red;" readonly /></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && !item.withPurchase"><input type="text" value="Disabled" style="font-size: 11px; color: red;" readonly /></td>
+                                <td v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && item.withPurchase"  class="pt-3-half" contenteditable="true">
 									<input
 									value="Purchased"       
 									v-model="item.purchasedCompany"
@@ -935,22 +935,22 @@
 									</td>
 
 
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'" ><input type="text" value="Need approval" style="font-size: 11px; color: red;" readonly/></td>
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && !item.withPurchase"><input type="text" value="Disabled" style="font-size: 11px; color: red;" readonly/></td>	
-                                <td v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && item.withPurchase" @click="confirmRst(item,index)" v-bind:class="{'resetSelected': item.resetImage,  '': !item.resetImage}"><a v-if="item.resetImage"><img :src="item.resetImage" style="height: 27px;width: 32px;" v-if="item.resetImage"/></a> </td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'" ><input type="text" value="Need approval" style="font-size: 11px; color: red;" readonly/></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && !item.withPurchase"><input type="text" value="Disabled" style="font-size: 11px; color: red;" readonly/></td>	
+                                <td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && item.withPurchase" @click="confirmRst(item,index)" v-bind:class="{'resetSelected': item.resetImage,  '': !item.resetImage}"><a v-if="item.resetImage"><img :src="item.resetImage" style="height: 27px;width: 32px;" v-if="item.resetImage"/></a> </td>
 
 
 
                                 
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && (!item.withPurchase && !item.fromStore)"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-                                <td  v-show="$store.state.user.role_id == 1"  v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore)" ><Checkbox @input="checkDelivered(item,index)" v-model="item.delivered"><h6></h6></Checkbox></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && (!item.withPurchase && !item.fromStore)"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
+                                <td class="tds" v-show="$store.state.user.role_id == 1"  v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore)" ><Checkbox @input="checkDelivered(item,index)" v-model="item.delivered"><h6></h6></Checkbox></td>
 
 
                                 
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && (!item.withPurchase && !item.fromStore)"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-                                <td  v-show="$store.state.user.role_id == 1"  v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore)" ><Checkbox @input="checkUnDelivered(item,index)" v-model="item.undelivered"><h6></h6></Checkbox></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && (!item.withPurchase && !item.fromStore)"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
+                                <td class="tds" v-show="$store.state.user.role_id == 1"  v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore)" ><Checkbox @input="checkUnDelivered(item,index)" v-model="item.undelivered"><h6></h6></Checkbox></td>
                         
 								<td  v-show="$store.state.user.role_id == 1" class="pt-3-half">
 									<input type="text" :readonly="!item.isEditable"
@@ -968,10 +968,10 @@
 									</td>
 
 
-                                <td v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
-								<td v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && (!item.withPurchase && !item.fromStore)"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-								<td  v-show="$store.state.user.role_id == 1"  v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore) && (item.delivered || item.undelivered) " ><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
-                                <td  v-show="$store.state.user.role_id == 1"  v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore) && (!item.delivered && !item.undelivered) " ><Checkbox @input="urgentItem(item,index)" v-model="item.urgent"><h6></h6></Checkbox></td>
+                                <td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'"><Checkbox class="ch" onclick="return false;" style="font-size: 11px;">Need approval</Checkbox></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='approved' && (!item.withPurchase && !item.fromStore)"><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
+								<td class="tds" v-show="$store.state.user.role_id == 1"  v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore) && (item.delivered || item.undelivered) " ><Checkbox class="ch" onclick="return false;"  style="font-size: 11px;">Disabled</Checkbox></td>
+                                <td class="tds" v-show="$store.state.user.role_id == 1"  v-if="item.approved=='approved'  && (item.withPurchase || item.fromStore) && (!item.delivered && !item.undelivered) " ><Checkbox @input="urgentItem(item,index)" v-model="item.urgent"><h6></h6></Checkbox></td>
 
 
                                 <td class="tds" v-show="$store.state.user.role_id == 1" v-if="item.approved=='Pending'" ></td>
@@ -1352,7 +1352,7 @@ export default{
 					{ text: 'Measurnmet', value: 'measurnment',sortable: false },
 					{ text: 'With Purchase', value: 'withPurchase',sortable: false },
 					{ text: 'From Store', value: 'fromStore',sortable: false },
-					{ text: 'Bought', value: 'bought',sortable: false },
+					{ text: 'Purchased', value: 'bought',sortable: false },
 					{ text: 'Purchased Company', value: 'purchasedCompany',sortable: false },
 					{ text: 'Reset', value: 'reset',sortable: false },
 					{ text: 'Delivered', value: 'delivered',sortable: false },

@@ -31,24 +31,27 @@
          
            <v-form
     ref="form"
-    v-model="valid"
     lazy-validation
+    autocomplete="off"
    style="width: 415px;padding: 38px;"
   >
    
 <div v-if="err" style="margin-left: 60px"><p style="color:red; font-weight:bold;">{{err}}</p></div>
                 <div class="space"></div>
     <v-text-field
-      autocomplete="email"
       v-model="data.email"
       :rules="emailRules"
       label="E-mail"
+      name="input-10-1"
+      outlined
+      border-color="black"
       required
     ></v-text-field>
 
   
    <v-text-field
-            autocomplete="password"
+            outlined
+            color="black"
             v-model="data.password"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required, rules.min]"
@@ -56,6 +59,7 @@
             name="input-10-1"
             label="Password"
             hint="At least 8 characters"
+            border-color="black"
             counter
             @click:append="show1 = !show1"
           ></v-text-field>
@@ -101,7 +105,7 @@ export default {
           loading:false,
           err : '',
           show1: false,
-          show2: true,
+          show2: false,
           show3: false,
           show4: false,
           password: 'Password',
@@ -143,6 +147,8 @@ export default {
 }
 </script>
 <style scoped>
+.v-text-field--outlined >>> fieldset {
+  border-color: rgba(19, 18, 20, 0.986)}
    ._1adminOverveiw_table_recent {
        margin: 0 auto;
        margin-top:175px;
